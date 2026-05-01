@@ -1,0 +1,91 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --background:             340 30% 98%;
+    --foreground:             340 15% 15%;
+    --card:                   0 0% 100%;
+    --card-foreground:        340 15% 15%;
+    --popover:                0 0% 100%;
+    --popover-foreground:     340 15% 15%;
+    --primary:                346 72% 48%;
+    --primary-foreground:     355 100% 97%;
+    --secondary:              346 40% 93%;
+    --secondary-foreground:   346 30% 30%;
+    --muted:                  340 20% 95%;
+    --muted-foreground:       340 10% 50%;
+    --accent:                 346 50% 90%;
+    --accent-foreground:      346 30% 25%;
+    --destructive:            0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --success:                142 76% 36%;
+    --success-foreground:     0 0% 98%;
+    --warning:                38 92% 50%;
+    --warning-foreground:     0 0% 98%;
+    --border:                 346 20% 88%;
+    --input:                  346 20% 88%;
+    --ring:                   346 72% 48%;
+    --sidebar:                346 35% 97%;
+    --sidebar-foreground:     340 15% 15%;
+    --sidebar-border:         346 20% 90%;
+    --radius:                 0.75rem;
+  }
+
+  .dark {
+    --background:             340 15% 10%;
+    --foreground:             340 20% 92%;
+    --card:                   340 12% 14%;
+    --card-foreground:        340 20% 92%;
+    --popover:                340 12% 14%;
+    --popover-foreground:     340 20% 92%;
+    --primary:                346 72% 62%;
+    --primary-foreground:     355 100% 97%;
+    --secondary:              346 15% 20%;
+    --secondary-foreground:   340 20% 85%;
+    --muted:                  340 12% 18%;
+    --muted-foreground:       340 10% 58%;
+    --accent:                 346 20% 22%;
+    --accent-foreground:      340 20% 85%;
+    --destructive:            0 62% 40%;
+    --destructive-foreground: 0 0% 98%;
+    --success:                142 76% 36%;
+    --success-foreground:     0 0% 98%;
+    --warning:                38 92% 50%;
+    --warning-foreground:     0 0% 98%;
+    --border:                 346 15% 22%;
+    --input:                  346 15% 22%;
+    --ring:                   346 72% 62%;
+    --sidebar:                340 15% 12%;
+    --sidebar-foreground:     340 20% 88%;
+    --sidebar-border:         346 15% 20%;
+  }
+}
+
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: var(--font-inter), system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+@utility shadow-soft {
+  box-shadow: 0 1px 3px 0 hsl(346 30% 70% / 0.12), 0 1px 2px -1px hsl(346 30% 70% / 0.08);
+}
+
+@utility shadow-soft-md {
+  box-shadow: 0 4px 12px 0 hsl(346 30% 70% / 0.15), 0 2px 4px -2px hsl(346 30% 70% / 0.10);
+}
+
+.dark .shadow-soft {
+  box-shadow: 0 1px 3px 0 hsl(0 0% 0% / 0.25), 0 1px 2px -1px hsl(0 0% 0% / 0.20);
+}
+
+.dark .shadow-soft-md {
+  box-shadow: 0 4px 12px 0 hsl(0 0% 0% / 0.35), 0 2px 4px -2px hsl(0 0% 0% / 0.25);
+}

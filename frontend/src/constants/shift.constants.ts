@@ -1,0 +1,1 @@
+export const SHIFT_STATUS_POLL_INTERVAL_MS = 30_000;

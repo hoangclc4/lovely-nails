@@ -1,0 +1,55 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1776148764126,
+      "tag": "0000_cold_gambit",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1777347921115,
+      "tag": "0001_dark_mariko_yashida",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1777361728117,
+      "tag": "0002_add_customer_name_to_sessions",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1777620928000,
+      "tag": "0003_add_booking_number",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1777532415309,
+      "tag": "0004_unknown_marrow",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1777533537199,
+      "tag": "0005_parched_victor_mancha",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1777720000000,
+      "tag": "0006_fix_session_number",
+      "breakpoints": true
+    }
+  ]
+}

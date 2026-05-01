@@ -1,0 +1,2 @@
+ALTER TABLE "service_sessions" ADD COLUMN "session_number" text NOT NULL;--> statement-breakpoint
+ALTER TABLE "service_sessions" ADD CONSTRAINT "service_sessions_session_number_unique" UNIQUE("session_number");
