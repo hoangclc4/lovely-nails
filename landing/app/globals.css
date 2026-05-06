@@ -136,10 +136,31 @@ body::before {
 .logo-horizontal { display: block; height: 68px; width: auto; }
 .logo-icon { display: none; height: 72px; width: auto; }
 
+/* Theme-aware logo visibility (light mode = show -dark.svg, dark mode = show -light.svg) */
+.logo-for-light { display: block; }
+.logo-for-dark { display: none; }
+[data-theme="dark"] .logo-for-light { display: none; }
+[data-theme="dark"] .logo-for-dark { display: block; }
+
 @media (max-width: 767px) {
   .logo-horizontal { display: none; }
   .logo-icon { display: block; }
+  .logo-for-light.logo-horizontal { display: none; }
+  .logo-for-dark.logo-horizontal { display: none; }
+  [data-theme="dark"] .logo-for-light.logo-icon { display: none; }
+  [data-theme="dark"] .logo-for-dark.logo-icon { display: block; }
 }
+
+/* === THEME TOGGLE ICONS === */
+.theme-icon-moon { display: block; }
+.theme-icon-sun { display: none; }
+[data-theme="dark"] .theme-icon-moon { display: none; }
+[data-theme="dark"] .theme-icon-sun { display: block; }
+
+.theme-label-moon { display: inline; }
+.theme-label-sun { display: none; }
+[data-theme="dark"] .theme-label-moon { display: none; }
+[data-theme="dark"] .theme-label-sun { display: inline; }
 
 /* === NAV MOBILE === */
 .nav-links-desktop { display: flex; gap: 2.5rem; align-items: center; }
