@@ -1,0 +1,210 @@
+@import "tailwindcss";
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #fce9ee;
+  --bg-card: #fff5f7;
+  --bg-card-hover: #f8d5e0;
+  --rose: #e8456b;
+  --rose-light: #f472a8;
+  --rose-glow: rgba(232, 69, 107, 0.1);
+  --gold: #b8784a;
+  --gold-light: #d4a574;
+  --cream: #fdf8f5;
+  --text: #1c0d14;
+  --text-muted: #7a6058;
+  --text-dim: #b09888;
+  --border: rgba(200, 80, 100, 0.15);
+  --nav-bg: rgba(252,233,238,0.7);
+  --nav-bg-scrolled: rgba(252,233,238,0.92);
+  --mobile-menu-bg: rgba(252,233,238,0.97);
+  --stats-bg: rgba(232, 69, 107, 0.07);
+  --stat-gradient: linear-gradient(135deg, var(--rose), var(--gold));
+  --heading: #1c0d14;
+  --font-display: var(--font-playfair, 'Playfair Display', Georgia, serif);
+  --font-body: var(--font-dm-sans, 'DM Sans', system-ui, sans-serif);
+}
+
+[data-theme="dark"] {
+  --bg: #0a0608;
+  --bg-card: #13090e;
+  --bg-card-hover: #1a0f15;
+  --rose: #e8456b;
+  --rose-light: #f472a8;
+  --rose-glow: rgba(232, 69, 107, 0.15);
+  --gold: #d4a574;
+  --gold-light: #e8c9a0;
+  --cream: #faf3ee;
+  --text: #e8ddd5;
+  --text-muted: #9a8d85;
+  --text-dim: #6b5f57;
+  --border: rgba(212, 165, 116, 0.1);
+  --nav-bg: rgba(10,6,8,0.7);
+  --nav-bg-scrolled: rgba(10,6,8,0.92);
+  --mobile-menu-bg: rgba(10,6,8,0.97);
+  --stats-bg: transparent;
+  --stat-gradient: linear-gradient(135deg, var(--cream), var(--gold));
+  --heading: #faf3ee;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  overflow-x: hidden;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Noise overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity: 0.12;
+}
+
+[data-theme="dark"] body::before {
+  opacity: 0.4;
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-80px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-left.visible { opacity: 1; transform: translateX(0); }
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(80px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+.stagger-1 { transition-delay: 0.1s; }
+.stagger-2 { transition-delay: 0.2s; }
+.stagger-3 { transition-delay: 0.3s; }
+.stagger-4 { transition-delay: 0.4s; }
+.stagger-5 { transition-delay: 0.5s; }
+
+/* Animations */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.5); }
+}
+
+@keyframes float-drift {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(20px, -30px) rotate(5deg); }
+  50% { transform: translate(-10px, -50px) rotate(-3deg); }
+  75% { transform: translate(30px, -20px) rotate(4deg); }
+}
+
+@keyframes float-subtle {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-5px, -10px); }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* === LOGO === */
+.logo-horizontal { display: block; height: 68px; width: auto; }
+.logo-icon { display: none; height: 72px; width: auto; }
+
+@media (max-width: 767px) {
+  .logo-horizontal { display: none; }
+  .logo-icon { display: block; }
+}
+
+/* === NAV MOBILE === */
+.nav-links-desktop { display: flex; gap: 2.5rem; align-items: center; }
+.nav-book-desktop { display: inline-block; }
+.nav-hamburger { display: none; }
+
+@media (max-width: 767px) {
+  .nav-links-desktop { display: none; }
+  .nav-book-desktop { display: none; }
+  .nav-hamburger { display: flex; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+}
+
+.nav-mobile-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 5rem 2rem 2rem;
+  background: var(--mobile-menu-bg);
+  backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  z-index: 99;
+  transform: translateY(-100%);
+  transition: transform 0.35s ease;
+}
+.nav-mobile-menu.open {
+  transform: translateY(0);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 767px) {
+  /* hero */
+  .hero-title { font-size: 2.5rem !important; }
+  .hero-sub { font-size: 1rem !important; }
+  .hero-buttons { flex-direction: column !important; align-items: stretch !important; }
+  .hero-buttons a, .hero-buttons button { text-align: center !important; }
+
+  /* stats */
+  .stats-grid { display: grid !important; grid-template-columns: repeat(2, 1fr) !important; }
+
+  /* services */
+  .services-grid { grid-template-columns: 1fr !important; }
+  .section-container { padding-left: 1.5rem !important; padding-right: 1.5rem !important; }
+
+  /* about */
+  .about-grid { grid-template-columns: 1fr !important; }
+
+  /* gallery */
+  .gallery-grid { grid-template-columns: repeat(2, 1fr) !important; }
+
+  /* steps */
+  .steps-grid { grid-template-columns: repeat(2, 1fr) !important; }
+
+  /* testimonials */
+  .testimonials-grid { grid-template-columns: 1fr !important; }
+
+  /* cta */
+  .cta-buttons { flex-direction: column !important; align-items: center !important; }
+
+  /* footer */
+  .footer-grid { flex-direction: column !important; align-items: center !important; text-align: center !important; }
+}
+
+@media (min-width: 600px) and (max-width: 767px) {
+  .services-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}

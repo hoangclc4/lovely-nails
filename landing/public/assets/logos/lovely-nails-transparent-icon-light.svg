@@ -1,0 +1,7 @@
+<svg width="130" height="130" viewBox="0 0 130 130" xmlns="http://www.w3.org/2000/svg">
+  
+  <rect x="47" y="42" width="36" height="50" rx="18" fill="#ff69b4"></rect>
+  <ellipse cx="65" cy="42" rx="18" ry="13" fill="#ff69b4"></ellipse>
+  <ellipse cx="65" cy="40" rx="12" ry="9" fill="white" opacity="0.2"></ellipse>
+  <text x="65" y="75" text-anchor="middle" font-family="&#39;Playfair Display&#39;, Georgia, serif" font-style="italic" font-weight="700" font-size="26" fill="white">L</text>
+</svg>
