@@ -145,7 +145,7 @@ export function Hero() {
             className="hero-sub"
             style={{
               fontSize: '1.15rem',
-              color: 'var(--text-muted)',
+              color: 'rgba(225, 205, 200, 0.75)',
               maxWidth: 550,
               margin: '0 auto 2.5rem',
               lineHeight: 1.8,
