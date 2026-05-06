@@ -11,7 +11,7 @@ import type {
   PaginatedResponse,
 } from '@/types/employee';
 import { apiClient } from '@/lib/api-client';
-import { SHIFT_STATUS_POLL_INTERVAL_MS } from '@/constants/shift.constants';
+import { EMPLOYEE_STATUS_POLL_INTERVAL_MS } from '@/constants/employee.constants';
 
 const EMPLOYEES_QUERY_KEY = 'employees';
 const EMPLOYEE_STATUS_QUERY_KEY = 'employee-status';
@@ -30,7 +30,7 @@ export function useEmployeeStatuses() {
   return useQuery({
     queryKey: employeeStatusKeys.all,
     queryFn: () => apiClient.get<{ data: EmployeeStatusSummary[] }>('/employees/status'),
-    refetchInterval: SHIFT_STATUS_POLL_INTERVAL_MS,
+    refetchInterval: EMPLOYEE_STATUS_POLL_INTERVAL_MS,
   });
 }
 

@@ -21,10 +21,12 @@ export const TodayBookingSchema = z.object({
   endTime: z.string(),
   status: z.string(),
   notes: z.string().nullable(),
+  totalAmount: z.string().nullable(),
 });
 
 export const ActiveSessionSchema = z.object({
   id: z.string(),
+  sessionNumber: z.string().nullable(),
   employeeId: z.string(),
   customerId: z.string().nullable(),
   startTime: z.string(),

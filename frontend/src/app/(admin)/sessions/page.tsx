@@ -17,6 +17,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { SESSION_STATUS, ALL_STATUSES_VALUE, SESSION_PATHS } from '@/constants/session.constants';
+import { DateInput } from '@/components/ui/date-input';
 import type { SessionStatus } from '@/types/session';
 
 const SESSION_STATUS_VALUES = [
@@ -73,8 +74,8 @@ export default function SessionsPage() {
     updateUrlParam('employeeId', id);
   };
 
-  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    updateUrlParam('dateFrom', e.target.value || undefined);
+  const handleDateChange = (value: string) => {
+    updateUrlParam('dateFrom', value || undefined);
   };
 
   const handleTodayClick = () => {
@@ -97,11 +98,9 @@ export default function SessionsPage() {
       <div className="p-6 space-y-4">
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-3 flex-wrap">
-            <input
-              type="date"
+            <DateInput
               value={dateFromUrl ?? ''}
               onChange={handleDateChange}
-              className="h-9 rounded-md border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
             />
             <Button variant="outline" size="sm" onClick={handleTodayClick}>
               {t('today')}

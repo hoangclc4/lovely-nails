@@ -10,7 +10,7 @@ import type { LiveDashboardData, DailySummaryData, DailySummaryEmployee } from '
 
 type DrizzleDB = NodePgDatabase<typeof schema>;
 
-const DEFAULT_WORK_STATUS = EMPLOYEE_WORK_STATUS.OFF;
+const DEFAULT_WORK_STATUS = EMPLOYEE_WORK_STATUS.FREE;
 
 function getTodayString(): string {
   return new Date().toISOString().split('T')[0] as string;
@@ -55,13 +55,26 @@ export class DashboardService {
             endTime: schema.bookings.endTime,
             status: schema.bookings.status,
             notes: schema.bookings.notes,
+            totalAmount: sum(schema.sessionServices.priceAtTime),
           })
           .from(schema.bookings)
-          .where(eq(schema.bookings.bookingDate, resolvedDate)),
+          .leftJoin(schema.serviceSessions, eq(schema.serviceSessions.bookingId, schema.bookings.id))
+          .leftJoin(schema.sessionServices, eq(schema.sessionServices.sessionId, schema.serviceSessions.id))
+          .where(eq(schema.bookings.bookingDate, resolvedDate))
+          .groupBy(
+            schema.bookings.id,
+            schema.bookings.employeeId,
+            schema.bookings.customerId,
+            schema.bookings.startTime,
+            schema.bookings.endTime,
+            schema.bookings.status,
+            schema.bookings.notes,
+          ),
 
         this.db
           .select({
             id: schema.serviceSessions.id,
+            sessionNumber: schema.serviceSessions.sessionNumber,
             employeeId: schema.serviceSessions.employeeId,
             customerId: schema.serviceSessions.customerId,
             startTime: schema.serviceSessions.startTime,
@@ -116,9 +129,11 @@ export class DashboardService {
         endTime: b.endTime,
         status: b.status,
         notes: b.notes,
+        totalAmount: b.totalAmount,
       })),
       activeSessions: activeSessionRows.map((s) => ({
         id: s.id,
+        sessionNumber: s.sessionNumber,
         employeeId: s.employeeId,
         customerId: s.customerId,
         startTime: s.startTime.toISOString(),

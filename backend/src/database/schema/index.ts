@@ -1,5 +1,4 @@
 export * from './employees';
-export * from './work-shifts';
 export * from './bookings';
 export * from './salon-schedule';
 export * from './employee-schedule';

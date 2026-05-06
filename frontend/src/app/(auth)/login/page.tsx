@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Sparkles, Eye, EyeOff } from 'lucide-react';
+import Image from 'next/image';
+import { Eye, EyeOff } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { loginSchema, type LoginInput } from '@/schemas/auth.schema';
 import { useLogin } from '@/hooks/use-auth';
@@ -42,14 +43,39 @@ export default function LoginPage() {
     <div className="w-full max-w-sm">
       <div className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-8 shadow-sm">
         <div className="mb-8 flex flex-col items-center gap-2">
-          <div className="flex items-center gap-2">
-            <Sparkles className="h-6 w-6 text-[hsl(var(--primary))]" />
-            <span
-              className="text-2xl font-semibold text-[hsl(var(--primary))]"
-              style={{ fontFamily: 'var(--font-playfair)' }}
-            >
-              Lovely Nails
-            </span>
+          <div>
+            <div className="dark:hidden">
+              <Image
+                src="/assets/logos/lovely-nails-transparent-stacked-light.svg"
+                alt="Lovely Nails"
+                width={96}
+                height={110}
+                className="md:hidden"
+              />
+              <Image
+                src="/assets/logos/lovely-nails-transparent-horizontal-light.svg"
+                alt="Lovely Nails"
+                width={180}
+                height={72}
+                className="hidden md:block"
+              />
+            </div>
+            <div className="hidden dark:block">
+              <Image
+                src="/assets/logos/lovely-nails-transparent-stacked-dark.svg"
+                alt="Lovely Nails"
+                width={96}
+                height={110}
+                className="md:hidden"
+              />
+              <Image
+                src="/assets/logos/lovely-nails-transparent-horizontal-dark.svg"
+                alt="Lovely Nails"
+                width={180}
+                height={72}
+                className="hidden md:block"
+              />
+            </div>
           </div>
           <p className="text-sm text-[hsl(var(--muted-foreground))]">{t('title')}</p>
         </div>

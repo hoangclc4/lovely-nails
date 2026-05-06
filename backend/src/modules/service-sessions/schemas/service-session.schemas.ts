@@ -36,8 +36,13 @@ export const sessionListParamsSchema = z.object({
   limit: z.coerce.number().int().positive().max(100).optional(),
 });
 
+export const updateSessionCustomerSchema = z.object({
+  customerId: z.string().uuid(),
+});
+
 export type CreateSessionDto = z.infer<typeof createSessionSchema>;
 export type AddSessionServiceDto = z.infer<typeof addSessionServiceSchema>;
 export type AddSessionAddOnDto = z.infer<typeof addSessionAddOnSchema>;
 export type AddTimeExtensionDto = z.infer<typeof addTimeExtensionSchema>;
 export type SessionListParams = z.infer<typeof sessionListParamsSchema>;
+export type UpdateSessionCustomerDto = z.infer<typeof updateSessionCustomerSchema>;

@@ -11,8 +11,6 @@ export const EMPLOYEE_STATUS = {
 export const EMPLOYEE_WORK_STATUS = {
   FREE: 'free',
   BUSY: 'busy',
-  OFF: 'off',
-  ON_BREAK: 'on_break',
 } as const;
 
 export const EMPLOYEE_REVENUE_SHARE_MIN = 0;

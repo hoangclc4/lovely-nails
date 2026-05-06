@@ -8,6 +8,7 @@ import { useIncidentReport, useIncidents, useUpdateIncident } from '@/hooks/use-
 import type { BookingIncident } from '@/types/incident';
 import { Header } from '@/components/layout/header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { DateInput } from '@/components/ui/date-input';
 import { formatCurrency } from '@/lib/utils';
 import type { RevenueDataPoint, EmployeeReportEntry, ServiceReportEntry, FinancialEmployeeEntry } from '@/types/report';
 
@@ -56,21 +57,11 @@ function DateRangePicker({
     <div className="flex flex-wrap items-center gap-3">
       <div className="space-y-1">
         <label className="text-xs text-[hsl(var(--muted-foreground))]">{t('dateRange.from')}</label>
-        <input
-          type="date"
-          value={dateFrom}
-          onChange={(e) => onDateFromChange(e.target.value)}
-          className="h-9 rounded-md border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-3 text-sm focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
-        />
+        <DateInput value={dateFrom} onChange={(v) => onDateFromChange(v)} />
       </div>
       <div className="space-y-1">
         <label className="text-xs text-[hsl(var(--muted-foreground))]">{t('dateRange.to')}</label>
-        <input
-          type="date"
-          value={dateTo}
-          onChange={(e) => onDateToChange(e.target.value)}
-          className="h-9 rounded-md border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-3 text-sm focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
-        />
+        <DateInput value={dateTo} onChange={(v) => onDateToChange(v)} />
       </div>
     </div>
   );

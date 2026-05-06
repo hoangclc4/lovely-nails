@@ -2,15 +2,11 @@ import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import Redis from 'ioredis';
 import { EnvConfig } from '../../config/env.config';
-import {
-  REDIS_EMPLOYEE_STATUS_KEY_PREFIX,
-  REDIS_EMPLOYEE_BREAK_START_KEY_PREFIX,
-} from '../../common/constants/shift.constants';
 
+const REDIS_EMPLOYEE_STATUS_KEY_PREFIX = 'employee:status:';
 const SCAN_COUNT = 100;
 const SCAN_CURSOR_DONE = '0';
 const INITIAL_CURSOR = '0';
-const RADIX_DECIMAL = 10;
 
 @Injectable()
 export class RedisService implements OnModuleInit, OnModuleDestroy {
@@ -75,24 +71,5 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
     await this.client.del(`${REDIS_EMPLOYEE_STATUS_KEY_PREFIX}${employeeId}`);
   }
 
-  async setBreakStart(employeeId: string, timestamp: number): Promise<void> {
-    await this.client.set(
-      `${REDIS_EMPLOYEE_BREAK_START_KEY_PREFIX}${employeeId}`,
-      String(timestamp),
-    );
-  }
 
-  async getBreakStart(employeeId: string): Promise<number | null> {
-    const value = await this.client.get(
-      `${REDIS_EMPLOYEE_BREAK_START_KEY_PREFIX}${employeeId}`,
-    );
-    if (value === null) {
-      return null;
-    }
-    return parseInt(value, RADIX_DECIMAL);
-  }
-
-  async deleteBreakStart(employeeId: string): Promise<void> {
-    await this.client.del(`${REDIS_EMPLOYEE_BREAK_START_KEY_PREFIX}${employeeId}`);
-  }
 }

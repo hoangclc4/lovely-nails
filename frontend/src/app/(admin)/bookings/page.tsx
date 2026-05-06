@@ -26,6 +26,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { BOOKING_STATUS, ALL_STATUSES_VALUE, WEEK_LENGTH } from '@/constants/booking.constants';
+import { DateInput } from '@/components/ui/date-input';
 import type { Booking, BookingStatus } from '@/types/booking';
 
 const LIST_VIEW = 'list';
@@ -123,8 +124,8 @@ export default function BookingsPage() {
     updateUrlParam('employeeId', id);
   };
 
-  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    updateUrlParam('date', e.target.value || undefined);
+  const handleDateChange = (value: string) => {
+    updateUrlParam('date', value || undefined);
   };
 
   const handleTodayClick = () => {
@@ -184,11 +185,9 @@ export default function BookingsPage() {
         {viewMode === LIST_VIEW && (
           <>
             <div className="flex items-center gap-3 flex-wrap">
-              <input
-                type="date"
+              <DateInput
                 value={dateFromUrl ?? ''}
                 onChange={handleDateChange}
-                className="h-9 rounded-md border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
               />
               <Button variant="outline" size="sm" onClick={handleTodayClick}>
                 {t('today')}

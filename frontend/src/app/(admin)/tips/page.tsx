@@ -28,6 +28,7 @@ import {
 import { useTranslations } from 'next-intl';
 import { formatCurrency } from '@/lib/utils';
 import type { TipListParams, TipPaymentMethod } from '@/types/tip';
+import { DateInput } from '@/components/ui/date-input';
 
 const ALL_EMPLOYEES_VALUE = 'all';
 
@@ -134,22 +135,12 @@ export default function TipsPage() {
 
           <div className="space-y-1">
             <label className="text-xs text-[hsl(var(--muted-foreground))]">{t('from')}</label>
-            <input
-              type="date"
-              value={dateFrom}
-              onChange={(e) => setDateFrom(e.target.value)}
-              className="h-9 rounded-md border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-3 text-sm focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
-            />
+            <DateInput value={dateFrom} onChange={setDateFrom} />
           </div>
 
           <div className="space-y-1">
             <label className="text-xs text-[hsl(var(--muted-foreground))]">{t('to')}</label>
-            <input
-              type="date"
-              value={dateTo}
-              onChange={(e) => setDateTo(e.target.value)}
-              className="h-9 rounded-md border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-3 text-sm focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
-            />
+            <DateInput value={dateTo} onChange={setDateTo} />
           </div>
 
           {hasActiveFilters && (

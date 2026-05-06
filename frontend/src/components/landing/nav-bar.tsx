@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { Sun, Moon, Monitor } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useTranslations, useLocale } from 'next-intl';
@@ -101,12 +102,40 @@ export function NavBar() {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-white/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-          <span
-            className="text-2xl font-semibold text-[hsl(var(--primary))]"
-            style={{ fontFamily: 'var(--font-playfair)' }}
-          >
-            Lovely Nails
-          </span>
+          <div>
+            <div className="dark:hidden">
+              <Image
+                src="/assets/logos/lovely-nails-transparent-stacked-light.svg"
+                alt="Lovely Nails"
+                width={42}
+                height={48}
+                className="md:hidden"
+              />
+              <Image
+                src="/assets/logos/lovely-nails-transparent-horizontal-light.svg"
+                alt="Lovely Nails"
+                width={110}
+                height={44}
+                className="hidden md:block"
+              />
+            </div>
+            <div className="hidden dark:block">
+              <Image
+                src="/assets/logos/lovely-nails-transparent-stacked-dark.svg"
+                alt="Lovely Nails"
+                width={42}
+                height={48}
+                className="md:hidden"
+              />
+              <Image
+                src="/assets/logos/lovely-nails-transparent-horizontal-dark.svg"
+                alt="Lovely Nails"
+                width={110}
+                height={44}
+                className="hidden md:block"
+              />
+            </div>
+          </div>
 
           <div className="flex items-center gap-3">
             <LanguageSwitcher />

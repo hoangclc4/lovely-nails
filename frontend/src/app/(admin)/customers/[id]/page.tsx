@@ -2,7 +2,7 @@
 
 import { use, useState } from 'react';
 import Link from 'next/link';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
 import { useCustomer, useCustomerHistory, useUpdateCustomer } from '@/hooks/use-customers';
@@ -11,6 +11,7 @@ import { updateCustomerSchema, type UpdateCustomerInput } from '@/schemas/custom
 import { Header } from '@/components/layout/header';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { DateInput } from '@/components/ui/date-input';
 
 const CUSTOMERS_PATH = '/customers';
 
@@ -151,7 +152,17 @@ export default function CustomerDetailPage({ params }: CustomerDetailPageProps) 
 
               <div className="space-y-1">
                 <label className="text-sm font-medium">{t('form.dateOfBirthLabel')}</label>
-                <Input type="date" {...form.register('dateOfBirth')} />
+                <Controller
+                  name="dateOfBirth"
+                  control={form.control}
+                  render={({ field }) => (
+                    <DateInput
+                      id="dateOfBirth"
+                      value={field.value ?? ''}
+                      onChange={field.onChange}
+                    />
+                  )}
+                />
               </div>
 
               <div className="space-y-1">

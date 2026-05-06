@@ -1,0 +1,19 @@
+<svg width="200" height="230" viewBox="0 0 200 230" xmlns="http://www.w3.org/2000/svg">
+  
+  <g transform="translate(48,14)">
+    <rect x="0" y="26" width="16" height="24" rx="8" fill="#e91e8c" opacity="0.45"></rect>
+    <ellipse cx="8" cy="26" rx="8" ry="6" fill="#e91e8c" opacity="0.45"></ellipse>
+    <rect x="20" y="16" width="18" height="30" rx="9" fill="#e91e8c" opacity="0.65"></rect>
+    <ellipse cx="29" cy="16" rx="9" ry="7" fill="#e91e8c" opacity="0.65"></ellipse>
+    <rect x="42" y="8" width="20" height="36" rx="10" fill="#e91e8c"></rect>
+    <ellipse cx="52" cy="8" rx="10" ry="8" fill="#e91e8c"></ellipse>
+    <ellipse cx="52" cy="7" rx="7" ry="5" fill="white" opacity="0.25"></ellipse>
+    <rect x="66" y="14" width="18" height="30" rx="9" fill="#e91e8c" opacity="0.65"></rect>
+    <ellipse cx="75" cy="14" rx="9" ry="7" fill="#e91e8c" opacity="0.65"></ellipse>
+    <rect x="88" y="24" width="16" height="24" rx="8" fill="#e91e8c" opacity="0.45"></rect>
+    <ellipse cx="96" cy="24" rx="8" ry="6" fill="#e91e8c" opacity="0.45"></ellipse>
+  </g>
+  <text x="100" y="138" text-anchor="middle" font-family="&#39;Playfair Display&#39;, Georgia, serif" font-style="italic" font-weight="700" font-size="52" fill="#880e4f" letter-spacing="-1">Lovely</text>
+  <line x1="40" y1="150" x2="160" y2="150" stroke="#e91e8c" stroke-width="0.8" opacity="0.4"></line>
+  <text x="100" y="172" text-anchor="middle" font-family="&#39;Josefin Sans&#39;, &#39;Century Gothic&#39;, sans-serif" font-weight="300" font-size="13" fill="#c2185b" letter-spacing="9">NAILS</text>
+</svg>

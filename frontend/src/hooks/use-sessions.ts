@@ -4,6 +4,7 @@ import type {
   AddSessionServiceDto,
   AddSessionAddOnDto,
   AddTimeExtensionDto,
+  UpdateSessionCustomerDto,
 } from '@/schemas/session.schema';
 import type {
   Session,
@@ -55,6 +56,18 @@ export function useCreateSession() {
         .then((res) => res.data),
     onSuccess: () => {
       void client.invalidateQueries({ queryKey: sessionKeys.all });
+    },
+  });
+}
+
+export function useUpdateSessionCustomer(id: string) {
+  const client = useQueryClient();
+
+  return useMutation({
+    mutationFn: (data: UpdateSessionCustomerDto) =>
+      apiClient.patch<{ success: boolean; data: Session }>(`/sessions/${id}/customer`, data),
+    onSuccess: () => {
+      void client.invalidateQueries({ queryKey: sessionKeys.detail(id) });
     },
   });
 }

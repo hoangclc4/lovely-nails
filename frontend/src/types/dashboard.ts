@@ -1,3 +1,5 @@
+import type { SessionStatus } from '@/types/session';
+
 export interface EmployeeStatusEntry {
   id: string;
   fullName: string;
@@ -13,14 +15,16 @@ export interface TodayBooking {
   endTime: string;
   status: string;
   notes: string | null;
+  totalAmount: string | null;
 }
 
 export interface ActiveSession {
   id: string;
+  sessionNumber: string | null;
   employeeId: string;
   customerId: string | null;
   startTime: string;
-  status: string;
+  status: SessionStatus;
 }
 
 export interface TodayStats {

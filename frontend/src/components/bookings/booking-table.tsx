@@ -9,6 +9,7 @@ import {
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table';
+import { useColumnSizing } from '@/hooks/use-column-sizing';
 import Link from 'next/link';
 import type { Booking, BookingStatus } from '@/types/booking';
 import type { Employee } from '@/types/employee';
@@ -64,7 +65,7 @@ function BookingTableRowActions({ booking }: BookingTableRowActionsProps) {
         notes: booking.notes ?? undefined,
         startTime: `${booking.bookingDate}T${booking.startTime}Z`,
       });
-      router.push(SESSION_PATHS.DETAIL(result.data.id));
+      router.push(SESSION_PATHS.DETAIL(result.id));
     }
   };
 
@@ -118,16 +119,20 @@ export function BookingTable({
 
   const t = useTranslations('bookings');
 
+  const [columnSizing, onColumnSizingChange] = useColumnSizing('lovely-nails:table:bookings');
+
   const columns = useMemo(
     () => [
       columnHelper.accessor('bookingNumber', {
         header: t('columns.bookingNumber'),
+        size: 130,
         cell: (info) => (
           <span className="font-mono text-xs">{info.getValue()}</span>
         ),
       }),
       columnHelper.accessor('customerName', {
         header: t('columns.customer'),
+        size: 140,
         cell: (info) => {
           const name = info.getValue();
           return name ? (
@@ -139,11 +144,13 @@ export function BookingTable({
       }),
       columnHelper.accessor('bookingDate', {
         header: t('columns.date'),
+        size: 110,
         cell: (info) => info.getValue(),
       }),
       columnHelper.display({
         id: 'time',
         header: t('columns.time'),
+        size: 110,
         cell: (info) => {
           const { startTime, endTime } = info.row.original;
           return `${startTime.slice(0, 5)} – ${endTime.slice(0, 5)}`;
@@ -151,10 +158,12 @@ export function BookingTable({
       }),
       columnHelper.accessor('employeeId', {
         header: t('columns.employee'),
+        size: 140,
         cell: (info) => employeeMap.get(info.getValue()) ?? info.getValue(),
       }),
       columnHelper.accessor('serviceIds', {
         header: t('columns.services'),
+        size: 180,
         cell: (info) => {
           const ids = info.getValue();
           if (ids.length === 0) return '—';
@@ -169,6 +178,7 @@ export function BookingTable({
       columnHelper.display({
         id: 'total',
         header: t('columns.total'),
+        size: 100,
         cell: (info) => {
           const ids = info.row.original.serviceIds;
           const total = ids.reduce((sum, id) => sum + (servicePriceMap.get(id) ?? 0), 0);
@@ -178,6 +188,7 @@ export function BookingTable({
       columnHelper.display({
         id: 'session',
         header: t('columns.session'),
+        size: 110,
         cell: (info) => {
           const sessionId = info.row.original.sessionId;
           if (!sessionId) return <span className="text-[hsl(var(--muted-foreground))]">—</span>;
@@ -193,10 +204,12 @@ export function BookingTable({
       }),
       columnHelper.accessor('status', {
         header: t('columns.status'),
+        size: 130,
         cell: (info) => <BookingStatusBadge status={info.getValue()} />,
       }),
       columnHelper.accessor('notes', {
         header: t('columns.notes'),
+        size: 150,
         cell: (info) => {
           const notes = info.getValue();
           return notes ? (
@@ -209,6 +222,7 @@ export function BookingTable({
       columnHelper.display({
         id: 'actions',
         header: '',
+        size: 170,
         cell: (info) => (
           <div className="flex items-center gap-1">
             <BookingTableRowActions booking={info.row.original} />
@@ -225,6 +239,9 @@ export function BookingTable({
   const table = useReactTable({
     data: bookings,
     columns,
+    columnResizeMode: 'onChange',
+    state: { columnSizing },
+    onColumnSizingChange,
     getCoreRowModel: getCoreRowModel(),
   });
 
@@ -256,7 +273,7 @@ export function BookingTable({
 
   return (
     <div className="w-full overflow-auto rounded-md border border-[hsl(var(--border))]">
-      <table className="w-full caption-bottom text-sm">
+      <table className="caption-bottom text-sm" style={{ width: table.getTotalSize() }}>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr
@@ -266,11 +283,21 @@ export function BookingTable({
               {headerGroup.headers.map((header) => (
                 <th
                   key={header.id}
-                  className="h-12 px-4 text-left align-middle font-medium text-[hsl(var(--muted-foreground))]"
+                  style={{ width: header.getSize() }}
+                  className="group relative h-12 px-4 text-left align-middle font-medium text-[hsl(var(--muted-foreground))]"
                 >
                   {header.isPlaceholder
                     ? null
                     : flexRender(header.column.columnDef.header, header.getContext())}
+                  <div
+                    onMouseDown={header.getResizeHandler()}
+                    onTouchStart={header.getResizeHandler()}
+                    className={`absolute inset-y-0 right-0 w-1 cursor-col-resize select-none touch-none transition-colors ${
+                      header.column.getIsResizing()
+                        ? 'bg-[hsl(var(--primary))]'
+                        : 'bg-[hsl(var(--border))] opacity-0 group-hover:opacity-100'
+                    }`}
+                  />
                 </th>
               ))}
             </tr>
@@ -283,7 +310,7 @@ export function BookingTable({
               className="border-b border-[hsl(var(--border))] transition-colors hover:bg-[hsl(var(--muted)/0.5)]"
             >
               {row.getVisibleCells().map((cell) => (
-                <td key={cell.id} className="px-4 py-3 align-middle">
+                <td key={cell.id} style={{ width: cell.column.getSize() }} className="px-4 py-3 align-middle">
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}

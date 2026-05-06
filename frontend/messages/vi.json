@@ -4,7 +4,6 @@
     "reports": "Báo cáo",
     "employees": "Kỹ thuật viên",
     "customers": "Khách hàng",
-    "timeTracking": "Chấm công",
     "bookings": "Đặt lịch",
     "services": "Dịch vụ",
     "sessions": "Phiên làm",
@@ -119,6 +118,7 @@
       "time": "Thời gian",
       "employee": "Kỹ thuật viên",
       "status": "Trạng thái",
+      "amount": "Doanh thu",
       "notes": "Ghi chú"
     }
   },
@@ -373,12 +373,18 @@
       "selectEmployee": "Chọn kỹ thuật viên",
       "bookingId": "Lịch hẹn liên kết (tùy chọn)",
       "bookingIdPlaceholder": "Chọn lịch hẹn đang chờ",
-      "customerName": "Tên khách hàng (tùy chọn)",
-      "customerNamePlaceholder": "Tên khách vãn lai",      "customerId": "Khách Hàng (tuỳ chọn)",
+      "noPendingBookings": "Không có lịch hẹn đang chờ",
+      "customerName": "Khách Hàng",
+      "customerGuestHint": "(tùy chọn — bỏ trống nếu là khách vãn lai)",
+      "customerId": "Khách Hàng (tuỳ chọn)",
       "selectCustomer": "Chọn khách hàng đã đăng ký",      "services": "Dịch vụ",
       "noActiveServices": "Không có dịch vụ nào",
+      "searchServicesPlaceholder": "Tìm dịch vụ...",
+      "categoryAll": "Tất cả",
+      "servicesSelectedSummary": "{count} đã chọn · {minutes} phút",
       "addOns": "Dịch vụ thêm (tùy chọn)",
       "noActiveAddOns": "Không có dịch vụ thêm nào",
+      "startTime": "Giờ bắt đầu",
       "notes": "Ghi chú (tùy chọn)",
       "startSession": "Bắt đầu ca",
       "starting": "Đang bắt đầu...",
@@ -390,6 +396,7 @@
       "employee": "Kỹ thuật viên",
       "customer": "Khách hàng",
       "guest": "Khách vãng lai",
+      "assignCustomer": "Gán khách hàng",
       "booking": "Đặt lịch",
       "started": "Bắt đầu",
       "ended": "Kết thúc",
@@ -420,6 +427,7 @@
       "title": "Thêm dịch vụ",
       "service": "Dịch vụ",
       "selectService": "Chọn dịch vụ",
+      "searchPlaceholder": "Tìm dịch vụ...",
       "adding": "Đang thêm...",
       "add": "Thêm"
     },
@@ -428,6 +436,13 @@
       "name": "Tên dịch vụ bổ sung",
       "namePlaceholder": "VD: Vẽ hoạ tiết, Sơn gel...",
       "price": "Giá"
+    },
+    "assignCustomerDialog": {
+      "title": "Gán khách hàng",
+      "search": "Tìm kiếm khách hàng...",
+      "noResults": "Không tìm thấy khách hàng.",
+      "assign": "Gán",
+      "assigning": "Đang gán..."
     },
     "extendDialog": {
       "title": "Thêm gia hạn thời gian",
@@ -655,31 +670,6 @@
       "endTime": "Giờ kết thúc",
       "amount": "Số tiền",
       "status": "Trạng thái"
-    }
-  },
-  "timeTracking": {
-    "title": "Chấm công",
-    "noData": "Không tìm thấy ca làm.",
-    "boardLoadFailed": "Không thể tải trạng thái kỹ thuật viên.",
-    "boardNoData": "Không tìm thấy kỹ thuật viên.",
-    "clockIn": "Chấm vào",
-    "clockOut": "Chấm ra",
-    "currentStatus": "Trạng thái hiện tại",
-    "allEmployees": "Tất cả kỹ thuật viên",
-    "employeeStatus": "Trạng thái kỹ thuật viên",
-    "shiftHistory": "Lịch sử ca làm",
-    "from": "Từ ngày",
-    "to": "Đến ngày",
-    "startBreak": "Bắt đầu giải lao",
-    "endBreak": "Kết thúc giải lao",
-    "loadFailed": "Không thể tải dữ liệu chấm công.",
-    "columns": {
-      "date": "Ngày",
-      "employee": "Kỹ thuật viên",
-      "clockIn": "Giờ vào",
-      "clockOut": "Giờ ra",
-      "breakMin": "Nghỉ (phút)",
-      "notes": "Ghi chú"
     }
   },
   "reports": {

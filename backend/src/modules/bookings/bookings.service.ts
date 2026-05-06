@@ -121,7 +121,7 @@ export class BookingsService {
       result.push({
         id: employee.id,
         fullName: employee.fullName,
-        workStatus: redisStatuses[employee.id] ?? EMPLOYEE_WORK_STATUS.OFF,
+        workStatus: redisStatuses[employee.id] ?? EMPLOYEE_WORK_STATUS.FREE,
         available: busyUntil === undefined,
         busyUntil,
       });

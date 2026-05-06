@@ -7,6 +7,7 @@ import {
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table';
+import { useColumnSizing } from '@/hooks/use-column-sizing';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import type { Service, ServiceCategory } from '@/types/service';
@@ -41,14 +42,18 @@ export function ServiceTable({ services, categories, onDelete }: ServiceTablePro
     [categories],
   );
 
+  const [columnSizing, onColumnSizingChange] = useColumnSizing('lovely-nails:table:services');
+
   const columns = useMemo(
     () => [
       columnHelper.accessor('name', {
         header: t('columns.name'),
+        size: 200,
         cell: (info) => info.getValue(),
       }),
       columnHelper.accessor('categoryId', {
         header: t('columns.category'),
+        size: 150,
         cell: (info) => {
           const id = info.getValue();
           if (!id) return '—';
@@ -63,14 +68,17 @@ export function ServiceTable({ services, categories, onDelete }: ServiceTablePro
       }),
       columnHelper.accessor('price', {
         header: t('columns.price'),
+        size: 100,
         cell: (info) => formatCurrency(parseFloat(String(info.getValue()))),
       }),
       columnHelper.accessor('durationMinutes', {
         header: t('columns.duration'),
+        size: 120,
         cell: (info) => `${info.getValue()} min`,
       }),
       columnHelper.accessor('isActive', {
         header: t('columns.status'),
+        size: 120,
         cell: (info) =>
           info.getValue() ? (
             <Badge variant="success">{t('columns.active')}</Badge>
@@ -81,6 +89,7 @@ export function ServiceTable({ services, categories, onDelete }: ServiceTablePro
       columnHelper.display({
         id: 'actions',
         header: t('columns.actions'),
+        size: 150,
         cell: (info) => (
           <div className="flex items-center gap-1">
             <Button asChild variant="ghost" size="sm">
@@ -104,6 +113,9 @@ export function ServiceTable({ services, categories, onDelete }: ServiceTablePro
   const table = useReactTable({
     data: services,
     columns,
+    columnResizeMode: 'onChange',
+    state: { columnSizing },
+    onColumnSizingChange,
     getCoreRowModel: getCoreRowModel(),
   });
 
@@ -117,7 +129,7 @@ export function ServiceTable({ services, categories, onDelete }: ServiceTablePro
 
   return (
     <div className="w-full overflow-auto rounded-md border border-[hsl(var(--border))]">
-      <table className="w-full caption-bottom text-sm">
+      <table className="caption-bottom text-sm" style={{ width: table.getTotalSize() }}>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr
@@ -127,11 +139,21 @@ export function ServiceTable({ services, categories, onDelete }: ServiceTablePro
               {headerGroup.headers.map((header) => (
                 <th
                   key={header.id}
-                  className="h-12 px-4 text-left align-middle font-medium text-[hsl(var(--muted-foreground))]"
+                  style={{ width: header.getSize() }}
+                  className="group relative h-12 px-4 text-left align-middle font-medium text-[hsl(var(--muted-foreground))]"
                 >
                   {header.isPlaceholder
                     ? null
                     : flexRender(header.column.columnDef.header, header.getContext())}
+                  <div
+                    onMouseDown={header.getResizeHandler()}
+                    onTouchStart={header.getResizeHandler()}
+                    className={`absolute inset-y-0 right-0 w-1 cursor-col-resize select-none touch-none transition-colors ${
+                      header.column.getIsResizing()
+                        ? 'bg-[hsl(var(--primary))]'
+                        : 'bg-[hsl(var(--border))] opacity-0 group-hover:opacity-100'
+                    }`}
+                  />
                 </th>
               ))}
             </tr>
@@ -144,7 +166,7 @@ export function ServiceTable({ services, categories, onDelete }: ServiceTablePro
               className="border-b border-[hsl(var(--border))] transition-colors hover:bg-[hsl(var(--muted)/0.5)]"
             >
               {row.getVisibleCells().map((cell) => (
-                <td key={cell.id} className="px-4 py-3 align-middle">
+                <td key={cell.id} style={{ width: cell.column.getSize() }} className="px-4 py-3 align-middle">
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}

@@ -4,7 +4,6 @@
     "reports": "Reports",
     "employees": "Technicians",
     "customers": "Customers",
-    "timeTracking": "Time Tracking",
     "bookings": "Bookings",
     "services": "Services",
     "sessions": "Sessions",
@@ -119,6 +118,7 @@
       "time": "Time",
       "employee": "Technician",
       "status": "Status",
+      "amount": "Amount",
       "notes": "Notes"
     }
   },
@@ -373,14 +373,19 @@
       "selectEmployee": "Select technician",
       "bookingId": "Linked Booking (optional)",
       "bookingIdPlaceholder": "Select a pending booking",
-      "customerName": "Customer Name (optional)",
-      "customerNamePlaceholder": "Walk-in customer name",
+      "noPendingBookings": "No pending bookings",
+      "customerName": "Customer",
+      "customerGuestHint": "(optional — leave empty for guest)",
       "customerId": "Customer (optional)",
       "selectCustomer": "Select a registered customer",
       "services": "Services",
       "noActiveServices": "No active services",
+      "searchServicesPlaceholder": "Search services...",
+      "categoryAll": "All",
+      "servicesSelectedSummary": "{count} selected · {minutes} min",
       "addOns": "Add-ons (optional)",
       "noActiveAddOns": "No active add-ons",
+      "startTime": "Start Time",
       "notes": "Notes (optional)",
       "startSession": "Start Session",
       "starting": "Starting...",
@@ -392,6 +397,7 @@
       "employee": "Technician",
       "customer": "Customer",
       "guest": "Guest",
+      "assignCustomer": "Assign Customer",
       "booking": "Booking",
       "started": "Started",
       "ended": "Ended",
@@ -422,6 +428,7 @@
       "title": "Add Service",
       "service": "Service",
       "selectService": "Select a service",
+      "searchPlaceholder": "Search services...",
       "adding": "Adding...",
       "add": "Add"
     },
@@ -430,6 +437,13 @@
       "name": "Add-on name",
       "namePlaceholder": "e.g. Nail art, Gel top coat...",
       "price": "Price"
+    },
+    "assignCustomerDialog": {
+      "title": "Assign Customer",
+      "search": "Search customers...",
+      "noResults": "No customers found.",
+      "assign": "Assign",
+      "assigning": "Assigning..."
     },
     "extendDialog": {
       "title": "Add Time Extension",
@@ -448,7 +462,7 @@
       "ended": "Ended",
       "total": "Total",
       "status": "Status",
-      "walkIn": "Walk-in",
+      "walkIn": "Guest",
       "view": "View",
       "noData": "No sessions found."
     }
@@ -482,7 +496,7 @@
     "form": {
       "sessionId": "Session",
       "selectSession": "Select a session",
-      "unknownCustomer": "Walk-in",
+      "unknownCustomer": "Guest",
       "employee": "Technician",
       "selectEmployee": "Select a technician",
       "amountUsd": "Amount (USD)",
@@ -657,31 +671,6 @@
       "endTime": "End Time",
       "amount": "Amount",
       "status": "Status"
-    }
-  },
-  "timeTracking": {
-    "title": "Time Tracking",
-    "noData": "No shifts found.",
-    "boardLoadFailed": "Failed to load employee statuses.",
-    "boardNoData": "No employees found.",
-    "clockIn": "Clock In",
-    "clockOut": "Clock Out",
-    "currentStatus": "Current Status",
-    "allEmployees": "All Technicians",
-    "employeeStatus": "Technician Status",
-    "shiftHistory": "Shift History",
-    "from": "From",
-    "to": "To",
-    "startBreak": "Start Break",
-    "endBreak": "End Break",
-    "loadFailed": "Failed to load time tracking data.",
-    "columns": {
-      "date": "Date",
-      "employee": "Employee",
-      "clockIn": "Clock In",
-      "clockOut": "Clock Out",
-      "breakMin": "Break (min)",
-      "notes": "Notes"
     }
   },
   "reports": {

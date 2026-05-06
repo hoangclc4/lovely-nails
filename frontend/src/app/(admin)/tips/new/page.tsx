@@ -39,6 +39,7 @@ export default function NewTipPage() {
     resolver: zodResolver(createTipSchema),
     defaultValues: {
       note: '',
+      paymentMethod: TIP_PAYMENT_METHOD.CASH,
     },
   });
 
@@ -65,7 +66,7 @@ export default function NewTipPage() {
               <SelectContent>
                 {sessions.map((session) => (
                   <SelectItem key={session.id} value={session.id}>
-                    {`${session.customerName ?? t('form.unknownCustomer')} — ${formatDateTime(session.startTime)}`}
+                    {`#${session.sessionNumber} — ${session.customerName ?? t('form.unknownCustomer')} — ${formatDateTime(session.startTime)}`}
                   </SelectItem>
                 ))}
               </SelectContent>

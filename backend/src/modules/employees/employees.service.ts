@@ -166,7 +166,7 @@ export class EmployeesService {
       id: employee.id,
       fullName: employee.fullName,
       status: employee.status,
-      workStatus: (redisStatuses[employee.id] ?? EMPLOYEE_WORK_STATUS.OFF) as EmployeeWorkStatus,
+      workStatus: (redisStatuses[employee.id] ?? EMPLOYEE_WORK_STATUS.FREE) as EmployeeWorkStatus,
     }));
   }
 }

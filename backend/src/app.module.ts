@@ -6,7 +6,6 @@ import { validateEnv } from './config/env.config';
 import { DatabaseModule } from './database/database.module';
 import { EmployeesModule } from './modules/employees/employees.module';
 import { RedisModule } from './modules/redis/redis.module';
-import { ShiftsModule } from './modules/shifts/shifts.module';
 import { BookingsModule } from './modules/bookings/bookings.module';
 import { SalonScheduleModule } from './modules/salon-schedule/salon-schedule.module';
 import { EmployeeScheduleModule } from './modules/employee-schedule/employee-schedule.module';
@@ -55,7 +54,6 @@ import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
     DatabaseModule,
     RedisModule,
     EmployeesModule,
-    ShiftsModule,
     BookingsModule,
     SalonScheduleModule,
     EmployeeScheduleModule,

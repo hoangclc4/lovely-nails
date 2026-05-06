@@ -16,11 +16,13 @@ import {
   addSessionAddOnSchema,
   addTimeExtensionSchema,
   sessionListParamsSchema,
+  updateSessionCustomerSchema,
   type CreateSessionDto,
   type AddSessionServiceDto,
   type AddSessionAddOnDto,
   type AddTimeExtensionDto,
   type SessionListParams,
+  type UpdateSessionCustomerDto,
 } from './schemas/service-session.schemas';
 
 @ApiTags('sessions')
@@ -51,6 +53,14 @@ export class ServiceSessionsController {
     @Body(new ZodValidationPipe(createSessionSchema)) dto: CreateSessionDto,
   ) {
     return this.serviceSessionsService.create(dto);
+  }
+
+  @Patch(':id/customer')
+  updateCustomer(
+    @Param('id') id: string,
+    @Body(new ZodValidationPipe(updateSessionCustomerSchema)) dto: UpdateSessionCustomerDto,
+  ) {
+    return this.serviceSessionsService.updateCustomer(id, dto);
   }
 
   @Patch(':id/complete')

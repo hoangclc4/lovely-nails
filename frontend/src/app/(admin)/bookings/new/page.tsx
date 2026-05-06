@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useForm, useWatch } from 'react-hook-form';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
@@ -12,6 +12,7 @@ import { useServices, useServiceCategories } from '@/hooks/use-services';
 import { Header } from '@/components/layout/header';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { DateInput } from '@/components/ui/date-input';
 import { Label } from '@/components/ui/label';
 import { CustomerSearchSelect } from '@/components/bookings/customer-search-select';
 import { CreateCustomerModal } from '@/components/bookings/create-customer-modal';
@@ -210,7 +211,17 @@ export default function NewBookingPage() {
           {/* Date */}
           <div className="space-y-2">
             <Label htmlFor="bookingDate">Booking Date</Label>
-            <Input id="bookingDate" type="date" {...register('bookingDate')} />
+            <Controller
+              name="bookingDate"
+              control={control}
+              render={({ field }) => (
+                <DateInput
+                  id="bookingDate"
+                  value={field.value ?? ''}
+                  onChange={field.onChange}
+                />
+              )}
+            />
             {errors.bookingDate && (
               <p className="text-xs text-[hsl(var(--destructive))]">{errors.bookingDate.message}</p>
             )}

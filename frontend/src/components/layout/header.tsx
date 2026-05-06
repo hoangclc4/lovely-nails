@@ -1,6 +1,7 @@
 'use client';
 
-import { Menu, Sun, Moon, Monitor } from 'lucide-react';
+import Image from 'next/image';
+import { Menu, PanelLeftClose, PanelLeftOpen, Sun, Moon, Monitor } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useTranslations } from 'next-intl';
 import { useState, useEffect } from 'react';
@@ -8,6 +9,7 @@ import { useLocale } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { useSidebar } from '@/stores/sidebar-store';
+import { getStoredAccessToken } from '@/stores/auth.store';
 import type { Locale } from '@/i18n/routing';
 
 const LOCALE_EN: Locale = 'en';
@@ -60,6 +62,59 @@ function ThemeToggle() {
 
 const LOCALE_COOKIE_NAME = 'ln_locale';
 const COOKIE_MAX_AGE_SECONDS = 60 * 60 * 24 * 365;
+const DEFAULT_USER_INITIALS = 'U';
+const USER_NAME_FALLBACK = 'User';
+const JWT_PAYLOAD_INDEX = 1;
+const BASE64_URL_DASH = /-/g;
+const BASE64_URL_UNDERSCORE = /_/g;
+const BASE64_STANDARD_PLUS = '+';
+const BASE64_STANDARD_SLASH = '/';
+
+
+interface TokenPayload {
+  name?: string;
+  email?: string;
+  sub?: string;
+}
+
+function getInitialsFromName(name: string): string {
+  const trimmedName = name.trim();
+  if (!trimmedName) return DEFAULT_USER_INITIALS;
+
+  const nameParts = trimmedName.split(' ').filter(Boolean);
+  if (!nameParts.length) return DEFAULT_USER_INITIALS;
+
+  const firstInitial = nameParts[0]?.[0] ?? DEFAULT_USER_INITIALS;
+  const secondInitial = nameParts[1]?.[0] ?? '';
+
+  return `${firstInitial}${secondInitial}`.toUpperCase();
+}
+
+function parseTokenPayload(token: string): TokenPayload | null {
+  const tokenParts = token.split('.');
+  const payloadPart = tokenParts[JWT_PAYLOAD_INDEX];
+  if (!payloadPart) return null;
+
+  try {
+    const base64Payload = payloadPart
+      .replace(BASE64_URL_DASH, BASE64_STANDARD_PLUS)
+      .replace(BASE64_URL_UNDERSCORE, BASE64_STANDARD_SLASH);
+
+    const decodedPayload = atob(base64Payload);
+    const parsedPayload = JSON.parse(decodedPayload) as TokenPayload;
+    return parsedPayload;
+  } catch {
+    return null;
+  }
+}
+
+function getUserDisplayName(payload: TokenPayload | null): string {
+  if (!payload) return USER_NAME_FALLBACK;
+  if (payload.name) return payload.name;
+  if (payload.email) return payload.email;
+  if (payload.sub) return payload.sub;
+  return USER_NAME_FALLBACK;
+}
 
 function LanguageSwitcher() {
   const locale = useLocale();
@@ -103,7 +158,25 @@ interface HeaderProps {
 }
 
 export function Header({ title }: HeaderProps) {
-  const { toggle } = useSidebar();
+  const { isCollapsed, toggle, toggleCollapsed } = useSidebar();
+  const desktopToggleLabel = isCollapsed ? 'Expand navigation' : 'Collapse navigation';
+  const DesktopToggleIcon = isCollapsed ? PanelLeftOpen : PanelLeftClose;
+  const [userInitials, setUserInitials] = useState(DEFAULT_USER_INITIALS);
+  const [userDisplayName, setUserDisplayName] = useState(USER_NAME_FALLBACK);
+
+  useEffect(() => {
+    const accessToken = getStoredAccessToken();
+    if (!accessToken) {
+      setUserInitials(DEFAULT_USER_INITIALS);
+      setUserDisplayName(USER_NAME_FALLBACK);
+      return;
+    }
+
+    const payload = parseTokenPayload(accessToken);
+    const resolvedName = getUserDisplayName(payload);
+    setUserDisplayName(resolvedName);
+    setUserInitials(getInitialsFromName(resolvedName));
+  }, []);
 
   return (
     <header className="flex h-16 items-center justify-between border-b border-[hsl(var(--border))] bg-[hsl(var(--background))] px-4 md:px-6">
@@ -115,6 +188,15 @@ export function Header({ title }: HeaderProps) {
         >
           <Menu className="h-5 w-5" />
         </button>
+        <button
+          onClick={toggleCollapsed}
+          aria-label={desktopToggleLabel}
+          title={desktopToggleLabel}
+          className="hidden md:inline-flex rounded-full p-2 text-[hsl(var(--muted-foreground))] hover:bg-[hsl(var(--accent))] hover:text-[hsl(var(--accent-foreground))] transition-colors"
+        >
+          <DesktopToggleIcon className="h-5 w-5" />
+        </button>
+      
         <h1
           className="text-xl font-semibold text-[hsl(var(--foreground))]"
           style={{ fontFamily: 'var(--font-playfair)' }}
@@ -126,8 +208,12 @@ export function Header({ title }: HeaderProps) {
       <div className="flex items-center gap-2">
         <LanguageSwitcher />
         <ThemeToggle />
-        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[hsl(var(--primary))] text-xs font-semibold text-[hsl(var(--primary-foreground))]">
-          LN
+        <div
+          aria-label={userDisplayName}
+          title={userDisplayName}
+          className="flex h-9 w-9 items-center justify-center rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--card))] text-xs font-semibold text-[hsl(var(--foreground))]"
+        >
+          {userInitials}
         </div>
       </div>
     </header>

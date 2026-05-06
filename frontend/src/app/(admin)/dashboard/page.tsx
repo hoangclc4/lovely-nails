@@ -6,7 +6,9 @@ import { useLiveDashboard } from '@/hooks/use-dashboard';
 import { Header } from '@/components/layout/header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { DateInput } from '@/components/ui/date-input';
 import { formatCurrency } from '@/lib/utils';
+import { SessionStatusBadge } from '@/components/sessions/session-status-badge';
 import type { EmployeeStatusEntry, TodayBooking, ActiveSession } from '@/types/dashboard';
 
 const WORK_STATUS_CLASS: Record<EmployeeStatusEntry['workStatus'], string> = {
@@ -45,11 +47,9 @@ export default function DashboardPage() {
       <div className="p-6 space-y-6">
         <div className="flex items-center gap-3">
           <label className="text-sm text-[hsl(var(--muted-foreground))]">{t('dateLabel')}</label>
-          <input
-            type="date"
+          <DateInput
             value={selectedDate}
-            onChange={(e) => setSelectedDate(e.target.value)}
-            className="h-9 rounded-md border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-3 text-sm focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
+            onChange={setSelectedDate}
           />
         </div>
 
@@ -160,6 +160,7 @@ export default function DashboardPage() {
                     <th className="px-4 py-3 text-left font-medium">{t('columns.time')}</th>
                     <th className="px-4 py-3 text-left font-medium">{t('columns.employee')}</th>
                     <th className="px-4 py-3 text-left font-medium">{t('columns.status')}</th>
+                    <th className="px-4 py-3 text-right font-medium">{t('columns.amount')}</th>
                     <th className="px-4 py-3 text-left font-medium">{t('columns.notes')}</th>
                   </tr>
                 </thead>
@@ -174,6 +175,9 @@ export default function DashboardPage() {
                       </td>
                       <td className="px-4 py-3">
                         <Badge variant="outline">{booking.status}</Badge>
+                      </td>
+                      <td className="px-4 py-3 text-right font-medium">
+                        {booking.totalAmount ? formatCurrency(parseFloat(booking.totalAmount)) : '—'}
                       </td>
                       <td className="px-4 py-3 text-[hsl(var(--muted-foreground))]">
                         {booking.notes ?? '—'}
@@ -203,12 +207,16 @@ export default function DashboardPage() {
               {activeSessions.map((session: ActiveSession) => (
                 <Card key={session.id} className="flex items-center justify-between px-4 py-3">
                   <div className="space-y-0.5">
-                    <p className="text-sm font-medium font-mono">{session.employeeId}</p>
+                    <p className="text-sm font-medium">
+                      {session.sessionNumber ? `#${session.sessionNumber}` : session.id}
+                      {' · '}
+                      {employeeNameMap.get(session.employeeId) ?? session.employeeId}
+                    </p>
                     <p className="text-xs text-[hsl(var(--muted-foreground))]">
                       {t('started')} {new Date(session.startTime).toLocaleTimeString()}
                     </p>
                   </div>
-                  <Badge variant="outline">{session.status}</Badge>
+                  <SessionStatusBadge status={session.status} />
                 </Card>
               ))}
             </div>

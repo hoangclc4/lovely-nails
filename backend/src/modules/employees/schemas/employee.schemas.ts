@@ -47,7 +47,6 @@ export const employeeStatusSchema = z.enum([
 export const employeeWorkStatusSchema = z.enum([
   EMPLOYEE_WORK_STATUS.FREE,
   EMPLOYEE_WORK_STATUS.BUSY,
-  EMPLOYEE_WORK_STATUS.OFF,
 ]);
 
 export const createEmployeeSchema = z.object({

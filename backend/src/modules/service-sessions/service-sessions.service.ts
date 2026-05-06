@@ -23,6 +23,7 @@ import {
   type AddSessionAddOnDto,
   type AddTimeExtensionDto,
   type SessionListParams,
+  type UpdateSessionCustomerDto,
 } from './schemas/service-session.schemas';
 
 type DrizzleDB = NodePgDatabase<typeof schema>;
@@ -231,9 +232,14 @@ export class ServiceSessionsService {
       COALESCE((SELECT SUM(sa.price_at_time) FROM session_add_ons sa WHERE sa.session_id = service_sessions.id), 0)
     )::numeric`;
 
+    const resolvedCustomerNameExpr = sql<string | null>`COALESCE(
+      ${schema.serviceSessions.customerName},
+      (SELECT c.full_name FROM customers c WHERE c.id = ${schema.serviceSessions.customerId})
+    )`;
+
     const [rows, totalResult] = await Promise.all([
       this.db
-        .select({ ...getTableColumns(schema.serviceSessions), totalAmount: totalAmountExpr })
+        .select({ ...getTableColumns(schema.serviceSessions), totalAmount: totalAmountExpr, customerName: resolvedCustomerNameExpr })
         .from(schema.serviceSessions)
         .where(where)
         .limit(limit)
@@ -355,6 +361,33 @@ export class ServiceSessionsService {
     }
 
     return inserted;
+  }
+
+  async updateCustomer(id: string, dto: UpdateSessionCustomerDto): Promise<ServiceSessionRecord> {
+    await this.findSessionRecord(id);
+
+    const customerRows = await this.db
+      .select()
+      .from(schema.customers)
+      .where(eq(schema.customers.id, dto.customerId))
+      .limit(1);
+
+    if (customerRows[0] === undefined) {
+      throw new NotFoundException('Customer not found');
+    }
+
+    const rows = await this.db
+      .update(schema.serviceSessions)
+      .set({ customerId: dto.customerId })
+      .where(eq(schema.serviceSessions.id, id))
+      .returning();
+
+    const updated = rows[0];
+    if (updated === undefined) {
+      throw new NotFoundException(SESSION_ERROR.NOT_FOUND);
+    }
+
+    return updated;
   }
 
   async findExtensions(id: string): Promise<SessionTimeExtensionRecord[]> {

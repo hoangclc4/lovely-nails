@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import { usePublicServices } from '@/hooks/use-public-services';
 import { usePublicAvailability, useCreatePublicBooking } from '@/hooks/use-public-booking';
 import { Button } from '@/components/ui/button';
+import { DateInput } from '@/components/ui/date-input';
 import { cn } from '@/lib/utils';
 import type { PublicService, PublicBookingResponse } from '@/types/public';
 
@@ -178,11 +179,10 @@ function Step1({
           <label className="block text-sm font-medium text-[hsl(var(--foreground))] mb-2">
             {t('booking.date')}
           </label>
-          <input
-            type="date"
+          <DateInput
             value={bookingDate}
             min={getTomorrowDateString()}
-            onChange={(e) => onDateChange(e.target.value)}
+            onChange={(v) => onDateChange(v)}
             className="w-full rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-4 py-2.5 text-sm text-[hsl(var(--foreground))] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
           />
         </div>

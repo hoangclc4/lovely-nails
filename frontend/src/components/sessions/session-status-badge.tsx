@@ -6,7 +6,7 @@ import type { SessionStatus } from '@/types/session';
 
 const STATUS_STYLES: Record<SessionStatus, string> = {
   [SESSION_STATUS.IN_PROGRESS]:
-    'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400',
+    'bg-[hsl(var(--warning))] text-[hsl(var(--warning-foreground))]',
   [SESSION_STATUS.COMPLETED]:
     'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400',
   [SESSION_STATUS.CANCELLED]:

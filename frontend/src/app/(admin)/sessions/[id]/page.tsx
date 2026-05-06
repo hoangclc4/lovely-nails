@@ -11,12 +11,15 @@ import {
   useAddSessionService,
   useAddSessionAddOn,
   useExtendSessionTime,
+  useUpdateSessionCustomer,
 } from '@/hooks/use-sessions';
+import { useCustomers } from '@/hooks/use-customers';
 import { useServices } from '@/hooks/use-services';
 import { useEmployee } from '@/hooks/use-employees';
 import { useBooking } from '@/hooks/use-bookings';
 import { Header } from '@/components/layout/header';
-import { formatCurrency, formatDateTime } from '@/lib/utils';
+import { cn, formatCurrency, formatDateTime } from '@/lib/utils';
+import { Input } from '@/components/ui/input';
 import { SessionStatusBadge } from '@/components/sessions/session-status-badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -25,13 +28,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import {
   addSessionServiceSchema,
   addSessionAddOnSchema,
@@ -44,7 +40,6 @@ import { useTranslations } from 'next-intl';
 import { SESSION_STATUS, SESSION_PATHS } from '@/constants/session.constants';
 import { SessionPhotoGallery } from '@/components/sessions/session-photo-gallery';
 
-const NO_SERVICE_VALUE = '';
 
 export default function SessionDetailPage() {
   const params = useParams<{ id: string }>();
@@ -54,8 +49,12 @@ export default function SessionDetailPage() {
 
   const [showCancelDialog, setShowCancelDialog] = useState(false);
   const [showAddServiceDialog, setShowAddServiceDialog] = useState(false);
+  const [serviceSearch, setServiceSearch] = useState('');
   const [showAddAddOnDialog, setShowAddAddOnDialog] = useState(false);
   const [showExtendDialog, setShowExtendDialog] = useState(false);
+  const [showAssignCustomerDialog, setShowAssignCustomerDialog] = useState(false);
+  const [customerSearch, setCustomerSearch] = useState('');
+  const [selectedCustomerId, setSelectedCustomerId] = useState<string | null>(null);
 
   const tPhotos = useTranslations('sessionPhotos');
 
@@ -63,12 +62,14 @@ export default function SessionDetailPage() {
   const { data: servicesData } = useServices({ isActive: true });
   const { data: employeeData } = useEmployee(session?.employeeId ?? '');
   const { data: bookingData } = useBooking(session?.bookingId ?? '');
+  const { data: customersData } = useCustomers({ search: customerSearch, limit: 50 });
 
   const completeSession = useCompleteSession(id);
   const cancelSession = useCancelSession(id);
   const addService = useAddSessionService(id);
   const addAddOn = useAddSessionAddOn(id);
   const extendTime = useExtendSessionTime(id);
+  const updateCustomer = useUpdateSessionCustomer(id);
 
   const addServiceForm = useForm<AddSessionServiceDto>({
     resolver: zodResolver(addSessionServiceSchema),
@@ -126,6 +127,20 @@ export default function SessionDetailPage() {
         setShowExtendDialog(false);
       },
     });
+  };
+
+  const handleAssignCustomer = () => {
+    if (selectedCustomerId === null) return;
+    updateCustomer.mutate(
+      { customerId: selectedCustomerId },
+      {
+        onSuccess: () => {
+          setShowAssignCustomerDialog(false);
+          setCustomerSearch('');
+          setSelectedCustomerId(null);
+        },
+      },
+    );
   };
 
   if (isLoading) {
@@ -188,7 +203,14 @@ export default function SessionDetailPage() {
           </div>
           <div className="flex items-center justify-between">
             <span className="text-sm text-[hsl(var(--muted-foreground))]">{t('detail.customer')}</span>
-            <span className="text-sm">{session.customerName ?? t('detail.guest')}</span>
+            <div className="flex items-center gap-2">
+              <span className="text-sm">{session.customerName ?? t('detail.guest')}</span>
+              {session.customerId === null && (
+                <Button size="sm" variant="outline" onClick={() => setShowAssignCustomerDialog(true)}>
+                  {t('detail.assignCustomer')}
+                </Button>
+              )}
+            </div>
           </div>
           {session.bookingId && (
             <div className="flex items-center justify-between">
@@ -335,6 +357,68 @@ export default function SessionDetailPage() {
         )}
       </div>
 
+      <Dialog
+        open={showAssignCustomerDialog}
+        onOpenChange={(open) => {
+          setShowAssignCustomerDialog(open);
+          if (!open) {
+            setCustomerSearch('');
+            setSelectedCustomerId(null);
+          }
+        }}
+      >
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{t('assignCustomerDialog.title')}</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-3">
+            <Input
+              placeholder={t('assignCustomerDialog.search')}
+              value={customerSearch}
+              onChange={(e) => setCustomerSearch(e.target.value)}
+              autoComplete="off"
+            />
+            <div className="max-h-52 overflow-y-auto rounded-md border border-[hsl(var(--border))] divide-y divide-[hsl(var(--border))]">
+              {(customersData?.data ?? []).length === 0 ? (
+                <p className="px-3 py-4 text-center text-sm text-[hsl(var(--muted-foreground))]">
+                  {t('assignCustomerDialog.noResults')}
+                </p>
+              ) : (
+                (customersData?.data ?? []).map((c) => (
+                  <button
+                    key={c.id}
+                    type="button"
+                    onClick={() => setSelectedCustomerId(c.id)}
+                    className={cn(
+                      'flex w-full items-center justify-between px-3 py-2.5 text-left text-sm transition-colors',
+                      selectedCustomerId === c.id
+                        ? 'bg-[hsl(var(--primary)/0.06)]'
+                        : 'hover:bg-[hsl(var(--accent))]',
+                    )}
+                  >
+                    <span className="font-medium">{c.fullName}</span>
+                    <span className="text-xs text-[hsl(var(--muted-foreground))]">{c.phone}</span>
+                  </button>
+                ))
+              )}
+            </div>
+            <div className="flex gap-3">
+              <Button
+                onClick={handleAssignCustomer}
+                disabled={selectedCustomerId === null || updateCustomer.isPending}
+              >
+                {updateCustomer.isPending
+                  ? t('assignCustomerDialog.assigning')
+                  : t('assignCustomerDialog.assign')}
+              </Button>
+              <Button variant="outline" onClick={() => setShowAssignCustomerDialog(false)}>
+                {t('cancelDialog.back')}
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
       <Dialog open={showCancelDialog} onOpenChange={setShowCancelDialog}>
         <DialogContent>
           <DialogHeader>
@@ -358,7 +442,13 @@ export default function SessionDetailPage() {
         </DialogContent>
       </Dialog>
 
-      <Dialog open={showAddServiceDialog} onOpenChange={setShowAddServiceDialog}>
+      <Dialog
+        open={showAddServiceDialog}
+        onOpenChange={(open) => {
+          setShowAddServiceDialog(open);
+          if (!open) setServiceSearch('');
+        }}
+      >
         <DialogContent>
           <DialogHeader>
             <DialogTitle>{t('addServiceDialog.title')}</DialogTitle>
@@ -367,23 +457,41 @@ export default function SessionDetailPage() {
             onSubmit={addServiceForm.handleSubmit(handleAddService)}
             className="space-y-4"
           >
-            <div className="space-y-1">
+            <div className="space-y-2">
               <label className="text-sm font-medium">{t('addServiceDialog.service')}</label>
-              <Select
-                value={addServiceForm.watch('serviceId') ?? NO_SERVICE_VALUE}
-                onValueChange={(val) => addServiceForm.setValue('serviceId', val)}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder={t('addServiceDialog.selectService')} />
-                </SelectTrigger>
-                <SelectContent>
-                  {services.map((svc) => (
-                    <SelectItem key={svc.id} value={svc.id}>
-                      {svc.name} — {formatCurrency(parseFloat(String(svc.price)))}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <Input
+                placeholder={t('addServiceDialog.searchPlaceholder')}
+                value={serviceSearch}
+                onChange={(e) => setServiceSearch(e.target.value)}
+                autoComplete="off"
+              />
+              <div className="max-h-52 overflow-y-auto rounded-md border border-[hsl(var(--border))] divide-y divide-[hsl(var(--border))]">
+                {services
+                  .filter((svc) =>
+                    svc.name.toLowerCase().includes(serviceSearch.toLowerCase()),
+                  )
+                  .map((svc) => {
+                    const selected = addServiceForm.watch('serviceId') === svc.id;
+                    return (
+                      <button
+                        key={svc.id}
+                        type="button"
+                        onClick={() => addServiceForm.setValue('serviceId', svc.id, { shouldValidate: true })}
+                        className={cn(
+                          'flex w-full items-center gap-3 px-3 py-2.5 text-left text-sm transition-colors',
+                          selected
+                            ? 'bg-[hsl(var(--primary)/0.06)]'
+                            : 'hover:bg-[hsl(var(--accent))]',
+                        )}
+                      >
+                        <span className="flex-1 font-medium">{svc.name}</span>
+                        <span className="text-xs text-[hsl(var(--muted-foreground))]">
+                          {formatCurrency(parseFloat(String(svc.price)))}
+                        </span>
+                      </button>
+                    );
+                  })}
+              </div>
               {addServiceForm.formState.errors.serviceId && (
                 <p className="text-xs text-red-500">
                   {addServiceForm.formState.errors.serviceId.message}

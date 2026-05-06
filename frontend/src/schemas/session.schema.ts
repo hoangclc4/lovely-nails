@@ -24,7 +24,12 @@ export const addTimeExtensionSchema = z.object({
   reason: z.string().min(1, { message: 'Reason is required' }),
 });
 
+export const updateSessionCustomerSchema = z.object({
+  customerId: z.string().uuid({ message: 'Select a customer' }),
+});
+
 export type CreateSessionDto = z.infer<typeof createSessionSchema>;
 export type AddSessionServiceDto = z.infer<typeof addSessionServiceSchema>;
 export type AddSessionAddOnDto = z.infer<typeof addSessionAddOnSchema>;
 export type AddTimeExtensionDto = z.infer<typeof addTimeExtensionSchema>;
+export type UpdateSessionCustomerDto = z.infer<typeof updateSessionCustomerSchema>;
