@@ -131,13 +131,13 @@ DATABASE_URL=
 REDIS_URL=
 JWT_SECRET=
 JWT_EXPIRES_IN=
-PORT=3001
+PORT=3100
 ```
 
 Frontend (`frontend/.env.local`):
 
 ```
-NEXT_PUBLIC_API_URL=http://localhost:3001/api/v1
+NEXT_PUBLIC_API_URL=http://localhost:3100/api/v1
 ```
 
 Never commit `.env` files.

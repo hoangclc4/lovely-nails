@@ -147,6 +147,7 @@ body::before {
   .logo-icon { display: block; }
   .logo-for-light.logo-horizontal { display: none; }
   .logo-for-dark.logo-horizontal { display: none; }
+  .logo-for-dark.logo-icon { display: none; }
   [data-theme="dark"] .logo-for-light.logo-icon { display: none; }
   [data-theme="dark"] .logo-for-dark.logo-icon { display: block; }
 }

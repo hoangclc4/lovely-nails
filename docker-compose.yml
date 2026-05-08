@@ -58,10 +58,10 @@ services:
       REDIS_URL: ${REDIS_URL:-redis://redis:6379}
       JWT_SECRET: ${JWT_SECRET:-change-me-in-production}
       JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-7d}
-      PORT: 3001
+      PORT: 3100
       TZ: Pacific/Guam
     ports:
-      - "${BACKEND_PORT:-3001}:3001"
+      - "${BACKEND_PORT:-3100}:3100"
     depends_on:
       migrate:
         condition: service_completed_successfully
@@ -76,7 +76,7 @@ services:
       args:
         # NEXT_PUBLIC_* is baked in at build time.
         # Point to the host-exposed backend port so browsers can reach it.
-        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:3001/api/v1}
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:3100/api/v1}
     environment:
       TZ: Pacific/Guam
     ports:
