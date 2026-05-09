@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack --port 4000",
+    "dev": "next dev --turbopack --port 3102",
     "build": "next build",
     "lint": "next lint",
     "type-check": "tsc --noEmit",

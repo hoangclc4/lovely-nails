@@ -80,7 +80,7 @@ services:
     environment:
       TZ: Pacific/Guam
     ports:
-      - "${FRONTEND_PORT:-3000}:3000"
+      - "${FRONTEND_PORT:-3102}:3102"
     depends_on:
       - backend
     restart: unless-stopped
