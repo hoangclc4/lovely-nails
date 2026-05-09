@@ -6,6 +6,8 @@ import { BOOKING_URL, NAV_LINKS } from '@/lib/constants';
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isDark, setIsDark] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 50);
@@ -13,16 +15,39 @@ export function Nav() {
     return () => window.removeEventListener('scroll', handler);
   }, []);
 
+  useEffect(() => {
+    const syncUiState = () => {
+      setIsDark(document.documentElement.getAttribute('data-theme') === 'dark');
+      setIsMobile(window.matchMedia('(max-width: 767px)').matches);
+    };
+
+    syncUiState();
+    window.addEventListener('resize', syncUiState);
+    return () => window.removeEventListener('resize', syncUiState);
+  }, []);
+
   const toggleTheme = () => {
     const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
     if (isDark) {
       document.documentElement.removeAttribute('data-theme');
       localStorage.setItem('theme', 'light');
+      setIsDark(false);
     } else {
       document.documentElement.setAttribute('data-theme', 'dark');
       localStorage.setItem('theme', 'dark');
+      setIsDark(true);
     }
   };
+
+  const logoSrc = isMobile
+    ? (isDark
+      ? '/assets/logos/lovely-nails-transparent-stacked-light.svg'
+      : '/assets/logos/lovely-nails-transparent-stacked-dark.svg')
+    : (isDark
+      ? '/assets/logos/lovely-nails-transparent-horizontal-light.svg'
+      : '/assets/logos/lovely-nails-transparent-horizontal-dark.svg');
+
+  const logoClassName = isMobile ? 'logo-icon' : 'logo-horizontal';
 
   const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
@@ -51,13 +76,7 @@ export function Nav() {
     >
       <div>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/assets/logos/lovely-nails-transparent-horizontal-dark.svg" alt="Lovely Nails" className="logo-horizontal logo-for-light" />
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/assets/logos/lovely-nails-transparent-horizontal-light.svg" alt="Lovely Nails" className="logo-horizontal logo-for-dark" />
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/assets/logos/lovely-nails-transparent-stacked-dark.svg" alt="Lovely Nails" className="logo-icon logo-for-light" />
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/assets/logos/lovely-nails-transparent-stacked-light.svg" alt="Lovely Nails" className="logo-icon logo-for-dark" />
+        <img src={logoSrc} alt="Lovely Nails" className={logoClassName} />
       </div>
 
       <div className="nav-links-desktop">

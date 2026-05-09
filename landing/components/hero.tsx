@@ -1,6 +1,6 @@
 'use client';
 
-import { BOOKING_URL } from '@/lib/constants';
+import { BOOKING_URL, HERO_PREVIEWS } from '@/lib/constants';
 import { ScrollReveal } from './scroll-reveal';
 
 export function Hero() {
@@ -21,7 +21,7 @@ export function Hero() {
         <img
           src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=1600&q=80"
           alt="Nail salon"
-          style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.25) saturate(0.6)' }}
+          style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.55) saturate(0.9)' }}
         />
       </div>
 
@@ -32,9 +32,9 @@ export function Hero() {
           inset: 0,
           zIndex: 1,
           background: `
-            radial-gradient(ellipse 80% 60% at 30% 40%, rgba(232,69,107,0.12), transparent),
-            radial-gradient(ellipse 60% 50% at 70% 60%, rgba(212,165,116,0.08), transparent),
-            linear-gradient(to bottom, rgba(10,6,8,0.3) 0%, rgba(10,6,8,0.6) 50%, var(--bg) 100%)
+            radial-gradient(ellipse 80% 60% at 30% 40%, rgba(232,69,107,0.08), transparent),
+            radial-gradient(ellipse 60% 50% at 70% 60%, rgba(212,165,116,0.05), transparent),
+            linear-gradient(to bottom, rgba(10,6,8,0.05) 0%, rgba(10,6,8,0.35) 55%, var(--bg) 100%)
           `,
         }}
       />
@@ -202,6 +202,33 @@ export function Hero() {
             >
               View Services
             </a>
+          </div>
+        </ScrollReveal>
+
+        <ScrollReveal delay={5}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.875rem', justifyContent: 'center', marginTop: '2.5rem' }}>
+            <div style={{ display: 'flex' }}>
+              {HERO_PREVIEWS.map((src, i) => (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  key={i}
+                  src={src}
+                  alt="Nail style preview"
+                  style={{
+                    width: 42,
+                    height: 42,
+                    borderRadius: '50%',
+                    objectFit: 'cover',
+                    border: '2px solid rgba(212,165,116,0.5)',
+                    marginLeft: i > 0 ? -10 : 0,
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
+                  }}
+                />
+              ))}
+            </div>
+            <span style={{ fontSize: '0.8rem', color: 'rgba(225,205,200,0.65)', letterSpacing: '0.06em' }}>
+              500+ styles crafted
+            </span>
           </div>
         </ScrollReveal>
       </div>

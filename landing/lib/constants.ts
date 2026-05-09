@@ -37,7 +37,7 @@ export const SERVICES = [
     description: 'A full pampering experience with hot stone massage, exfoliation, and moisturizing treatment.',
     price: 'From $55',
     duration: '60 min',
-    imageUrl: 'https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=600&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1519415943484-9fa1873496d4?w=600&q=80',
     imageAlt: 'Spa Pedicure',
   },
   {
@@ -47,6 +47,22 @@ export const SERVICES = [
     duration: '75 min',
     imageUrl: 'https://images.unsplash.com/photo-1610992015732-2449b76344bc?w=600&q=80',
     imageAlt: 'Acrylic Extensions',
+  },
+  {
+    name: 'Kids Manicure',
+    description: 'A fun, safe, and gentle nail experience for little ones — mini spa day just for them!',
+    price: 'From $20',
+    duration: '30 min',
+    imageUrl: 'https://images.pexels.com/photos/4210343/pexels-photo-4210343.jpeg?auto=compress&cs=tinysrgb&w=600&q=80',
+    imageAlt: 'Kids Manicure',
+  },
+  {
+    name: 'Waxing',
+    description: 'Smooth, long-lasting hair removal with professional-grade wax for legs, brows, and more.',
+    price: 'From $15',
+    duration: '20–45 min',
+    imageUrl: 'https://images.pexels.com/photos/3998013/pexels-photo-3998013.jpeg?auto=compress&cs=tinysrgb&w=600&q=80',
+    imageAlt: 'Waxing Service',
   },
 ] as const;
 
@@ -75,12 +91,24 @@ export const ABOUT_FEATURES = [
 ] as const;
 
 export const GALLERY_ITEMS = [
-  { imageUrl: 'https://images.unsplash.com/photo-1604654894610-df63bc536371?w=500&q=80', label: 'Rose Gold Chrome', alt: 'Nail art 1' },
-  { imageUrl: 'https://images.unsplash.com/photo-1632345031435-8727f6897d53?w=500&q=80', label: 'Abstract Art', alt: 'Nail art 2' },
-  { imageUrl: 'https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=500&q=80', label: 'Classic French', alt: 'Nail art 3' },
-  { imageUrl: 'https://images.unsplash.com/photo-1610992015732-2449b76344bc?w=500&q=80', label: 'Ombré Glitter', alt: 'Nail art 4' },
-  { imageUrl: 'https://images.unsplash.com/photo-1607779097040-26e80aa78e66?w=500&q=80', label: 'Minimalist Lines', alt: 'Nail art 5' },
-  { imageUrl: 'https://images.unsplash.com/photo-1595867818082-083862f3d630?w=500&q=80', label: 'Seasonal Blooms', alt: 'Nail art 6' },
+  { imageUrl: 'https://images.unsplash.com/photo-1604654894610-df63bc536371?w=500&q=80', label: 'Rose Gold Chrome', alt: 'Rose gold manicure' },
+  { imageUrl: 'https://images.unsplash.com/photo-1632345031435-8727f6897d53?w=500&q=80', label: 'Abstract Art', alt: 'Abstract nail art' },
+  { imageUrl: 'https://images.unsplash.com/photo-1519415943484-9fa1873496d4?w=500&q=80', label: 'Spa Pedicure', alt: 'Luxury spa pedicure' },
+  { imageUrl: 'https://images.unsplash.com/photo-1610992015732-2449b76344bc?w=500&q=80', label: 'Ombré Glitter', alt: 'Ombre glitter nails' },
+  { imageUrl: 'https://images.unsplash.com/photo-1607779097040-26e80aa78e66?w=500&q=80', label: 'Minimalist Lines', alt: 'Minimalist nail design' },
+  { imageUrl: 'https://images.unsplash.com/photo-1604902396830-aca29e19b067?w=500&q=80', label: 'Classic Red', alt: 'Classic red manicure' },
+  { imageUrl: 'https://images.pexels.com/photos/17056221/pexels-photo-17056221.jpeg?auto=compress&cs=tinysrgb&w=500&q=80', label: 'Pedicure Bliss', alt: 'Pedicure close-up' },
+  { imageUrl: 'https://images.pexels.com/photos/4210343/pexels-photo-4210343.jpeg?auto=compress&cs=tinysrgb&w=500&q=80', label: 'Kids Special', alt: 'Kids manicure' },
+  { imageUrl: 'https://images.pexels.com/photos/4210675/pexels-photo-4210675.jpeg?auto=compress&cs=tinysrgb&w=500&q=80', label: 'Glitter Glam', alt: 'Glitter nail art' },
+  { imageUrl: 'https://images.pexels.com/photos/3993449/pexels-photo-3993449.jpeg?auto=compress&cs=tinysrgb&w=500&q=80', label: 'Pink Paradise', alt: 'Pink manicure' },
+] as const;
+
+export const HERO_PREVIEWS = [
+  'https://images.pexels.com/photos/3993449/pexels-photo-3993449.jpeg?auto=compress&cs=tinysrgb&w=120&q=80',
+  'https://images.unsplash.com/photo-1519415387722-a1c3bbef716c?w=120&q=80',
+  'https://images.pexels.com/photos/4210343/pexels-photo-4210343.jpeg?auto=compress&cs=tinysrgb&w=120&q=80',
+  'https://images.pexels.com/photos/4210675/pexels-photo-4210675.jpeg?auto=compress&cs=tinysrgb&w=120&q=80',
+  'https://images.pexels.com/photos/3998013/pexels-photo-3998013.jpeg?auto=compress&cs=tinysrgb&w=120&q=80',
 ] as const;
 
 export const STEPS = [

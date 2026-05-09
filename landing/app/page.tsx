@@ -1,6 +1,7 @@
 import { Nav } from '@/components/nav';
 import { Hero } from '@/components/hero';
 import { Stats } from '@/components/stats';
+import { PhotoStrip } from '@/components/photo-strip';
 import { Services } from '@/components/services';
 import { TagsMarquee } from '@/components/tags-marquee';
 import { About } from '@/components/about';
@@ -16,6 +17,7 @@ export default function Page() {
       <Nav />
       <Hero />
       <Stats />
+      <PhotoStrip />
       <Services />
       <TagsMarquee />
       <About />

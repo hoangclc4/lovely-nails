@@ -134,23 +134,7 @@ body::before {
 
 /* === LOGO === */
 .logo-horizontal { display: block; height: 68px; width: auto; }
-.logo-icon { display: none; height: 72px; width: auto; }
-
-/* Theme-aware logo visibility (light mode = show -dark.svg, dark mode = show -light.svg) */
-.logo-for-light { display: block; }
-.logo-for-dark { display: none; }
-[data-theme="dark"] .logo-for-light { display: none; }
-[data-theme="dark"] .logo-for-dark { display: block; }
-
-@media (max-width: 767px) {
-  .logo-horizontal { display: none; }
-  .logo-icon { display: block; }
-  .logo-for-light.logo-horizontal { display: none; }
-  .logo-for-dark.logo-horizontal { display: none; }
-  .logo-for-dark.logo-icon { display: none; }
-  [data-theme="dark"] .logo-for-light.logo-icon { display: none; }
-  [data-theme="dark"] .logo-for-dark.logo-icon { display: block; }
-}
+.logo-icon { display: block; height: 72px; width: auto; }
 
 /* === THEME TOGGLE ICONS === */
 .theme-icon-moon { display: block; }
@@ -194,6 +178,18 @@ body::before {
 }
 
 /* === RESPONSIVE === */
+/* photo bento responsive */
+@media (max-width: 767px) {
+  .photo-bento {
+    grid-template-columns: 1fr 1fr !important;
+    grid-template-rows: repeat(3, 160px) !important;
+  }
+  .photo-bento > div:first-child {
+    grid-column: span 2 !important;
+    grid-row: span 1 !important;
+  }
+}
+
 @media (max-width: 767px) {
   /* hero */
   .hero-title { font-size: 2.5rem !important; }
@@ -224,7 +220,8 @@ body::before {
   .cta-buttons { flex-direction: column !important; align-items: center !important; }
 
   /* footer */
-  .footer-grid { flex-direction: column !important; align-items: center !important; text-align: center !important; }
+  .footer-grid { flex-direction: column !important; align-items: center !important; text-align: center !important; padding: 2.5rem 1.5rem !important; }
+  .footer-links { gap: 1rem !important; }
 }
 
 @media (min-width: 600px) and (max-width: 767px) {
