@@ -21,10 +21,14 @@ async function bootstrap(): Promise<void> {
     { bufferLogs: true },
   );
 
+  const corsOrigin = process.env['CORS_ORIGIN'] ?? '*';
+  const allowedOrigins = corsOrigin === '*' ? '*' : corsOrigin.split(',').map((o) => o.trim());
+
   app.enableCors({
-    origin: '*',
+    origin: allowedOrigins,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: allowedOrigins !== '*',
   });
 
   const logger = app.get(Logger);
