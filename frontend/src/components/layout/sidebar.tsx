@@ -96,34 +96,38 @@ export function Sidebar() {
         <div className={cn('min-w-0', isCollapsed ? 'md:w-full' : '')}>
           <div className="md:hidden">
             <Image
-              src={buildLogoSrc(mobileLogoBaseName, LIGHT_LOGO_SUFFIX)}
-              alt={LOGO_ALT}
-              width={MOBILE_LOGO_WIDTH}
-              height={MOBILE_LOGO_HEIGHT}
-              className="h-auto w-auto max-h-12 dark:hidden"
-            />
-            <Image
               src={buildLogoSrc(mobileLogoBaseName, DARK_LOGO_SUFFIX)}
               alt={LOGO_ALT}
               width={MOBILE_LOGO_WIDTH}
               height={MOBILE_LOGO_HEIGHT}
+              className="h-auto w-auto max-h-12 dark:hidden"
+              unoptimized
+            />
+            <Image
+              src={buildLogoSrc(mobileLogoBaseName, LIGHT_LOGO_SUFFIX)}
+              alt={LOGO_ALT}
+              width={MOBILE_LOGO_WIDTH}
+              height={MOBILE_LOGO_HEIGHT}
               className="hidden h-auto w-auto max-h-12 dark:block"
+              unoptimized
             />
           </div>
           <div className="hidden md:block">
-            <Image
-              src={buildLogoSrc(desktopLogoBaseName, LIGHT_LOGO_SUFFIX)}
-              alt={LOGO_ALT}
-              width={DESKTOP_LOGO_WIDTH}
-              height={DESKTOP_LOGO_HEIGHT}
-              className="h-auto w-full max-w-40 dark:hidden"
-            />
             <Image
               src={buildLogoSrc(desktopLogoBaseName, DARK_LOGO_SUFFIX)}
               alt={LOGO_ALT}
               width={DESKTOP_LOGO_WIDTH}
               height={DESKTOP_LOGO_HEIGHT}
+              className="h-auto w-full max-w-40 dark:hidden"
+              unoptimized
+            />
+            <Image
+              src={buildLogoSrc(desktopLogoBaseName, LIGHT_LOGO_SUFFIX)}
+              alt={LOGO_ALT}
+              width={DESKTOP_LOGO_WIDTH}
+              height={DESKTOP_LOGO_HEIGHT}
               className="hidden h-auto w-full max-w-40 dark:block"
+              unoptimized
             />
           </div>
         </div>

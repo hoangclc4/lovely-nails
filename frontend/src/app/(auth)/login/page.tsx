@@ -46,27 +46,12 @@ export default function LoginPage() {
           <div>
             <div className="dark:hidden">
               <Image
-                src="/assets/logos/lovely-nails-transparent-stacked-light.svg"
-                alt="Lovely Nails"
-                width={96}
-                height={110}
-                className="md:hidden"
-              />
-              <Image
-                src="/assets/logos/lovely-nails-transparent-horizontal-light.svg"
-                alt="Lovely Nails"
-                width={180}
-                height={72}
-                className="hidden md:block"
-              />
-            </div>
-            <div className="hidden dark:block">
-              <Image
                 src="/assets/logos/lovely-nails-transparent-stacked-dark.svg"
                 alt="Lovely Nails"
                 width={96}
                 height={110}
                 className="md:hidden"
+                unoptimized
               />
               <Image
                 src="/assets/logos/lovely-nails-transparent-horizontal-dark.svg"
@@ -74,6 +59,25 @@ export default function LoginPage() {
                 width={180}
                 height={72}
                 className="hidden md:block"
+                unoptimized
+              />
+            </div>
+            <div className="hidden dark:block">
+              <Image
+                src="/assets/logos/lovely-nails-transparent-stacked-light.svg"
+                alt="Lovely Nails"
+                width={96}
+                height={110}
+                className="md:hidden"
+                unoptimized
+              />
+              <Image
+                src="/assets/logos/lovely-nails-transparent-horizontal-light.svg"
+                alt="Lovely Nails"
+                width={180}
+                height={72}
+                className="hidden md:block"
+                unoptimized
               />
             </div>
           </div>

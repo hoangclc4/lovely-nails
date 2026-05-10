@@ -204,7 +204,7 @@ export default function ServiceDetailPage({ params }: ServiceDetailPageProps) {
               defaultValues={{
                 name: service.name,
                 description: service.description ?? undefined,
-                price: service.price,
+                price: parseFloat(service.price),
                 durationMinutes: service.durationMinutes,
                 categoryId: service.categoryId ?? undefined,
                 isActive: service.isActive,
