@@ -5,11 +5,12 @@ import { useEffect, useRef, type ReactNode } from 'react';
 type ScrollRevealProps = {
   children: ReactNode;
   className?: string;
+  style?: React.CSSProperties;
   variant?: 'reveal' | 'reveal-left' | 'reveal-right';
   delay?: 1 | 2 | 3 | 4 | 5;
 };
 
-export function ScrollReveal({ children, className = '', variant = 'reveal', delay }: ScrollRevealProps) {
+export function ScrollReveal({ children, className = '', style, variant = 'reveal', delay }: ScrollRevealProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -35,7 +36,7 @@ export function ScrollReveal({ children, className = '', variant = 'reveal', del
   const delayClass = delay ? `stagger-${delay}` : '';
 
   return (
-    <div ref={ref} className={`${variant} ${delayClass} ${className}`.trim()}>
+    <div ref={ref} className={`${variant} ${delayClass} ${className}`.trim()} style={style}>
       {children}
     </div>
   );

@@ -5,7 +5,7 @@ import { ScrollReveal } from './scroll-reveal';
 
 export function HowItWorks() {
   return (
-    <section id="how" style={{ padding: '7rem 3rem' }}>
+    <section id="how" style={{ padding: '3rem' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
           <ScrollReveal>
@@ -19,7 +19,7 @@ export function HowItWorks() {
         </div>
         <div className="steps-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '2rem' }}>
           {STEPS.map((step, i) => (
-            <ScrollReveal key={step.number} delay={(i + 1) as 1 | 2 | 3 | 4}>
+            <ScrollReveal key={step.number} delay={(i + 1) as 1 | 2 | 3 | 4} style={{ height: '100%' }}>
               <div
                 style={{
                   textAlign: 'center',
@@ -28,6 +28,8 @@ export function HowItWorks() {
                   border: '1px solid var(--border)',
                   background: 'var(--bg-card)',
                   transition: 'all 0.5s',
+                  height: '100%',
+                  boxSizing: 'border-box',
                 }}
                 onMouseEnter={(e) => { const el = e.currentTarget; el.style.borderColor = 'rgba(232,69,107,0.2)'; el.style.transform = 'translateY(-5px)'; }}
                 onMouseLeave={(e) => { const el = e.currentTarget; el.style.borderColor = 'var(--border)'; el.style.transform = 'translateY(0)'; }}

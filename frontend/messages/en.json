@@ -810,13 +810,13 @@
   },
   "landing": {
     "nav": {
-      "bookNow": "Book Now",
+      "callNow": "Call Now",
       "adminLogin": "Admin"
     },
     "hero": {
       "title": "Beautiful Nails, Beautiful You",
       "subtitle": "Premium nail care services crafted with love. Walk in and leave feeling your best.",
-      "cta": "Book Appointment",
+      "cta": "Call to Book",
       "stat1Value": "500+",
       "stat1Label": "Happy Clients",
       "stat2Value": "5+",
@@ -830,7 +830,7 @@
       "loading": "Loading services...",
       "error": "Failed to load services.",
       "empty": "No services available.",
-      "bookThis": "Book This",
+      "allCategories": "All",
       "duration": "{min} min",
       "priceLabel": "Price"
     },

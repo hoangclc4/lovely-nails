@@ -1,4 +1,4 @@
-import { BOOKING_URL } from '@/lib/constants';
+import { PHONE_NUMBER } from '@/lib/constants';
 import { ScrollReveal } from './scroll-reveal';
 
 export function CTA() {
@@ -22,9 +22,7 @@ export function CTA() {
         <ScrollReveal delay={3}>
           <div className="cta-buttons" style={{ display: 'flex', justifyContent: 'center' }}>
             <a
-              href={BOOKING_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={`tel:${PHONE_NUMBER}`}
               style={{
                 padding: '0.9rem 2.5rem',
                 borderRadius: '100px',
@@ -39,7 +37,7 @@ export function CTA() {
                 transition: 'all 0.4s',
               }}
             >
-              Book Your Appointment
+              Call to Book
             </a>
           </div>
         </ScrollReveal>

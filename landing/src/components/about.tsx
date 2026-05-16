@@ -5,7 +5,7 @@ import { ScrollReveal } from './scroll-reveal';
 
 export function About() {
   return (
-    <section id="about" style={{ padding: '7rem 3rem', position: 'relative', overflow: 'hidden' }}>
+    <section id="about" style={{ padding: '3rem', position: 'relative', overflow: 'hidden' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
         <div className="about-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'center' }}>
 

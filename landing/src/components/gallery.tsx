@@ -7,7 +7,7 @@ export function Gallery() {
   const doubled = [...GALLERY_ITEMS, ...GALLERY_ITEMS];
 
   return (
-    <section id="gallery" style={{ padding: '7rem 0', background: 'var(--bg)' }}>
+    <section id="gallery" style={{ padding: '3rem 0', background: 'var(--bg)' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 3rem', marginBottom: '3rem' }}>
         <div style={{ textAlign: 'center' }}>
           <ScrollReveal>

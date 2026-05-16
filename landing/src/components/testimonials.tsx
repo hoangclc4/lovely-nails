@@ -5,7 +5,7 @@ import { ScrollReveal } from './scroll-reveal';
 
 export function Testimonials() {
   return (
-    <section id="reviews" style={{ padding: '7rem 3rem', background: 'var(--bg)' }}>
+    <section id="reviews" style={{ padding: '3rem', background: 'var(--bg)' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
           <ScrollReveal>

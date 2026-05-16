@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { BOOKING_URL, NAV_LINKS } from '@/lib/constants';
+import { PHONE_NUMBER, NAV_LINKS } from '@/lib/constants';
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -135,9 +135,7 @@ export function Nav() {
         </button>
 
         <a
-          href={BOOKING_URL}
-          target="_blank"
-          rel="noopener noreferrer"
+          href={`tel:${PHONE_NUMBER}`}
           className="nav-book-desktop"
           style={{
             padding: '0.65rem 1.8rem',
@@ -162,7 +160,7 @@ export function Nav() {
             el.style.boxShadow = 'none';
           }}
         >
-          Book Now
+          Call Now
         </a>
       </div>
 
@@ -198,9 +196,7 @@ export function Nav() {
           </a>
         ))}
         <a
-          href={BOOKING_URL}
-          target="_blank"
-          rel="noopener noreferrer"
+          href={`tel:${PHONE_NUMBER}`}
           style={{
             padding: '0.9rem 2.5rem',
             borderRadius: '100px',
@@ -216,7 +212,7 @@ export function Nav() {
             marginTop: '0.5rem',
           }}
         >
-          Book Now
+          Call Now
         </a>
         <button
           onClick={toggleTheme}

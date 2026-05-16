@@ -1,6 +1,6 @@
 'use client';
 
-import { BOOKING_URL, HERO_PREVIEWS } from '@/lib/constants';
+import { PHONE_NUMBER, HERO_PREVIEWS } from '@/lib/constants';
 import { ScrollReveal } from './scroll-reveal';
 
 export function Hero() {
@@ -19,9 +19,9 @@ export function Hero() {
       <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=1600&q=80"
+          src="https://images.unsplash.com/photo-1604902396830-aca29e19b067?w=600&q=80"
           alt="Nail salon"
-          style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.55) saturate(0.9)' }}
+          style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 22%', filter: 'brightness(0.55) saturate(0.9)' }}
         />
       </div>
 
@@ -34,7 +34,7 @@ export function Hero() {
           background: `
             radial-gradient(ellipse 80% 60% at 30% 40%, rgba(232,69,107,0.08), transparent),
             radial-gradient(ellipse 60% 50% at 70% 60%, rgba(212,165,116,0.05), transparent),
-            linear-gradient(to bottom, rgba(10,6,8,0.05) 0%, rgba(10,6,8,0.35) 55%, var(--bg) 100%)
+            linear-gradient(to bottom, rgba(10,6,8,0.05) 0%, rgba(10,6,8,0.35) 55%, var(--bg) 140%)
           `,
         }}
       />
@@ -160,9 +160,7 @@ export function Hero() {
         <ScrollReveal delay={3}>
           <div className="hero-buttons" style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' as const }}>
             <a
-              href={BOOKING_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={`tel:${PHONE_NUMBER}`}
               style={{
                 padding: '0.9rem 2.5rem',
                 borderRadius: '100px',
@@ -177,7 +175,7 @@ export function Hero() {
                 transition: 'all 0.4s',
               }}
             >
-              Book Appointment
+              Call to Book
             </a>
             <a
               href="#services"
@@ -188,10 +186,10 @@ export function Hero() {
               style={{
                 padding: '0.9rem 2.5rem',
                 borderRadius: '100px',
-                background: 'transparent',
-                border: '1px solid var(--border)',
+                background: 'rgba(0,0,0,0.06)',
+                border: '1.5px solid var(--text)',
                 fontSize: '0.85rem',
-                fontWeight: 500,
+                fontWeight: 600,
                 letterSpacing: '0.08em',
                 textTransform: 'uppercase' as const,
                 color: 'var(--text)',
@@ -226,7 +224,7 @@ export function Hero() {
                 />
               ))}
             </div>
-            <span style={{ fontSize: '0.8rem', color: 'rgba(225,205,200,0.65)', letterSpacing: '0.06em' }}>
+            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', letterSpacing: '0.06em' }}>
               500+ styles crafted
             </span>
           </div>

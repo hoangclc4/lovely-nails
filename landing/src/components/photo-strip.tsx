@@ -4,28 +4,28 @@ import { ScrollReveal } from './scroll-reveal';
 
 const BENTO_IMAGES = [
   {
-    src: 'https://images.pexels.com/photos/3993449/pexels-photo-3993449.jpeg?auto=compress&cs=tinysrgb&w=800&q=80',
-    alt: 'Pink manicure',
+    src: 'https://images.pexels.com/photos/3997354/pexels-photo-3997354.jpeg?auto=compress&cs=tinysrgb&w=800&q=80',
+    alt: 'Nail technician applying red polish',
     label: 'Manicure',
   },
   {
-    src: 'https://images.unsplash.com/photo-1519415387722-a1c3bbef716c?w=500&q=80',
-    alt: 'Pedicure spa',
+    src: 'https://images.pexels.com/photos/6642887/pexels-photo-6642887.jpeg?auto=compress&cs=tinysrgb&w=500&q=80',
+    alt: 'Red pedicure on white sheets',
     label: 'Pedicure',
   },
   {
-    src: 'https://images.pexels.com/photos/4210343/pexels-photo-4210343.jpeg?auto=compress&cs=tinysrgb&w=500&q=80',
-    alt: 'Kids manicure',
+    src: 'https://images.pexels.com/photos/5999083/pexels-photo-5999083.jpeg?auto=compress&cs=tinysrgb&w=500&q=80',
+    alt: 'Girl painting her toenails',
     label: 'Kids',
   },
   {
-    src: 'https://images.pexels.com/photos/3998013/pexels-photo-3998013.jpeg?auto=compress&cs=tinysrgb&w=500&q=80',
-    alt: 'Waxing service',
+    src: 'https://images.pexels.com/photos/6763618/pexels-photo-6763618.jpeg?auto=compress&cs=tinysrgb&w=500&q=80',
+    alt: 'Professional leg waxing',
     label: 'Waxing',
   },
   {
-    src: 'https://images.unsplash.com/photo-1607779097040-26e80aa78e66?w=500&q=80',
-    alt: 'Nail art gel polish',
+    src: 'https://images.unsplash.com/photo-1610992015732-2449b76344bc?w=500&q=80',
+    alt: 'Ombré glitter nail art',
     label: 'Nail Art',
   },
 ] as const;

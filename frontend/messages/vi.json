@@ -809,13 +809,13 @@
   },
   "landing": {
     "nav": {
-      "bookNow": "Đặt Lịch",
+      "callNow": "Gọi Ngay",
       "adminLogin": "Quản Trị"
     },
     "hero": {
       "title": "Móng Đẹp, Tự Tin Hơn",
       "subtitle": "Dịch vụ chăm sóc móng chuyên nghiệp, tận tâm. Bước vào và cảm nhận sự thay đổi.",
-      "cta": "Đặt Lịch Ngay",
+      "cta": "Gọi Đặt Lịch",
       "stat1Value": "500+",
       "stat1Label": "Khách Hài Lòng",
       "stat2Value": "5+",
@@ -829,7 +829,7 @@
       "loading": "Đang tải dịch vụ...",
       "error": "Không thể tải dịch vụ.",
       "empty": "Chưa có dịch vụ.",
-      "bookThis": "Đặt Dịch Vụ Này",
+      "allCategories": "Tất Cả",
       "duration": "{min} phút",
       "priceLabel": "Giá"
     },
